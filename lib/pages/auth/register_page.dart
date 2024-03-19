@@ -124,7 +124,7 @@ class RegisterPage extends StatelessWidget {
                     const SizedBox(height: 20),
                     // todo: register button
                     CustomFilledButtonWidget(
-                      buttonTitle: "Login",
+                      buttonTitle: "Register",
                       onPressed: () {},
                     ),
                     const SizedBox(height: 10),
