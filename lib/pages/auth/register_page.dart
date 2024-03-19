@@ -132,7 +132,9 @@ class RegisterPage extends StatelessWidget {
                     Center(
                       child: CustomTextButtonWidget(
                         title: "I have account, Login!",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                   ],

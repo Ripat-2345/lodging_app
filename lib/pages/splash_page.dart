@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lodging_app/theme.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
       const Duration(seconds: 2),
       () => Navigator.pushNamedAndRemoveUntil(
         context,
-        '/register',
+        '/get-started',
         (route) => false,
       ),
     );
@@ -25,6 +26,29 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Container(
+        color: darkBlueColor,
+        child: Center(
+          child: Container(
+            width: 250,
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 13),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: whiteColor,
+            ),
+            child: Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 188,
+                height: 34,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
