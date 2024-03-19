@@ -4,6 +4,7 @@ import 'package:lodging_app/pages/auth/register_page.dart';
 import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
+import 'package:lodging_app/theme.dart';
 
 void main() {
   runApp(const LodgingApp());
@@ -16,7 +17,12 @@ class LodgingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: darkBlueColor,
+        ),
+      ),
       routes: {
         '/': (context) => const SplashPage(),
         '/get-started': (context) => const GetStartedPage(),
