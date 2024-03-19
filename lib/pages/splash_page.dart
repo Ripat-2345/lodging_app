@@ -27,24 +27,22 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: darkBlueColor,
-        child: Center(
-          child: Container(
-            width: 250,
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 13),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: whiteColor,
-            ),
-            child: Center(
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: 188,
-                height: 34,
-                fit: BoxFit.contain,
-              ),
+      backgroundColor: darkBlueColor,
+      body: Center(
+        child: Container(
+          width: 250,
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 13),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: whiteColor,
+          ),
+          child: Center(
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 188,
+              height: 34,
+              fit: BoxFit.contain,
             ),
           ),
         ),
