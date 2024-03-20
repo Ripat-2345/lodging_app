@@ -42,13 +42,17 @@ class LoginPage extends StatelessWidget {
                         Text(
                           "Login",
                           style: semiBoldTextStyle.copyWith(
-                              color: blueColor, fontSize: 23),
+                            color: blueColor,
+                            fontSize: 23,
+                          ),
                         ),
                         const SizedBox(width: 7),
                         Text(
                           "to continue your",
                           style: semiBoldTextStyle.copyWith(
-                              color: darkBlueColor, fontSize: 23),
+                            color: darkBlueColor,
+                            fontSize: 23,
+                          ),
                           maxLines: 2,
                         )
                       ],
@@ -56,7 +60,9 @@ class LoginPage extends StatelessWidget {
                     Text(
                       "explore",
                       style: semiBoldTextStyle.copyWith(
-                          color: darkBlueColor, fontSize: 22),
+                        color: darkBlueColor,
+                        fontSize: 22,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     //todo: Email Address Field
@@ -66,7 +72,7 @@ class LoginPage extends StatelessWidget {
                         color: blueColor,
                       ),
                       style: mediumTextStyle.copyWith(color: darkBlueColor),
-                      hintText: "Enter Your Email",
+                      hintText: "Input your email",
                       hintStyle: regularTextStyle,
                       keyboardType: TextInputType.emailAddress,
                     ),
@@ -78,7 +84,7 @@ class LoginPage extends StatelessWidget {
                         color: blueColor,
                       ),
                       style: mediumTextStyle.copyWith(color: darkBlueColor),
-                      hintText: "Enter Your Password",
+                      hintText: "Input your password",
                       hintStyle: regularTextStyle,
                       obscureText: true,
                     ),
