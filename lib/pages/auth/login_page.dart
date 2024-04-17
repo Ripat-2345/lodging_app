@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_text_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
+import 'package:lodging_app/pages/bottom_menu_bar_page.dart';
 import 'package:lodging_app/theme.dart';
 
 class LoginPage extends StatelessWidget {
@@ -116,7 +117,15 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 15),
                       CustomFilledButtonWidget(
                         buttonTitle: "Login",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BottomMenuBarPage(),
+                            ),
+                            (route) => false,
+                          );
+                        },
                       ),
                       const SizedBox(height: 15),
                       // todo: Go To Register Page
