@@ -6,12 +6,10 @@ class BookingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          "Bookings",
-          style: semiBoldTextStyle.copyWith(fontSize: 28, color: darkBlueColor),
-        ),
+    return Center(
+      child: Text(
+        "Bookings",
+        style: semiBoldTextStyle.copyWith(fontSize: 28, color: darkBlueColor),
       ),
     );
   }

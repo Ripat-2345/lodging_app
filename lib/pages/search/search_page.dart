@@ -6,12 +6,10 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          "Search",
-          style: semiBoldTextStyle.copyWith(fontSize: 28, color: darkBlueColor),
-        ),
+    return Center(
+      child: Text(
+        "Search",
+        style: semiBoldTextStyle.copyWith(fontSize: 28, color: darkBlueColor),
       ),
     );
   }
