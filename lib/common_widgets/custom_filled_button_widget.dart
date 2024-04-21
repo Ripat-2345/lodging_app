@@ -41,6 +41,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
         ),
         child: Text(
           buttonTitle,
+          textAlign: TextAlign.center,
           style: mediumTextStyle.copyWith(
             color: buttonTitleColor,
             fontSize: buttonTitleFontSize,
