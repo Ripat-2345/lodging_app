@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/pages/auth/login_page.dart';
 import 'package:lodging_app/pages/auth/register_page.dart';
+import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
@@ -29,6 +30,7 @@ class LodgingApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/home': (context) => const HomePage(),
+        '/detail-lodging': (context) => const DetailLodgingPage(),
       },
     );
   }

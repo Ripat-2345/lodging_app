@@ -11,19 +11,29 @@ class DetailLodgingPage extends StatefulWidget {
 }
 
 class _DetailLodgingPageState extends State<DetailLodgingPage> {
-  List<String> images = [
+  final List<String> _images = [
     'assets/images/lodging1.png',
     'assets/images/lodging2.png',
   ];
 
-  String longText =
+  final String _overView =
       'Set in Uluwatu, 100 metres from Cemongkak Beach, Terra Cottages Bali offers accommodation with an outdoor swimming pool, free private parking, a garden and a restaurant. 200 metres from Bingin Beach and 700 metres from Dreamland Beach, the property features a private beach area, as well as a bar.';
 
   bool isExpanded = false;
 
-  List<String> reviews = [
-    "Great place to stay! Amazing amenities and friendly staff.",
-    "I had a wonderful time at Amnaya Resort Nusa Dua. Highly recommended!"
+  final List _reviewUsers = [
+    [
+      "assets/images/user1.png",
+      "Uding Pancong",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "1 days ago",
+    ],
+    [
+      "assets/images/user2.png",
+      "Iqbal Syah Aja",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "3 months ago",
+    ],
   ];
 
   @override
@@ -33,7 +43,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
         child: Padding(
           padding: const EdgeInsets.only(
             left: 22,
-            top: 50,
+            top: 40,
             right: 22,
             bottom: 10,
           ),
@@ -81,13 +91,15 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     color: darkBlueColor,
                     fontSize: 20,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(height: 40),
               Transform.scale(
                 scale: 1.2,
                 child: CarouselSlider(
-                  items: images.map((item) {
+                  items: _images.map((item) {
                     return SizedBox(
                       width: 346,
                       height: 240,
@@ -164,7 +176,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               Text(
                 'Overview',
                 style: semiBoldTextStyle.copyWith(
@@ -178,29 +190,31 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      isExpanded
-                          ? longText
-                          : '${longText.substring(0, 150)}...',
-                      style: regularTextStyle,
-                      textAlign: TextAlign.justify,
+                    SizedBox(
+                      width: double.infinity,
+                      height: 120,
+                      child: Text(
+                        _overView,
+                        style: regularTextStyle,
+                        textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 6,
+                      ),
                     ),
-                    // SizedBox(height: 4),
-                    // if (longText.length > 150)
-                    //   GestureDetector(
-                    //     onTap: () {
-                    //       setState(() {
-                    //         isExpanded = !isExpanded;
-                    //       });
-                    //     },
-                    //     child: Text(
-                    //       isExpanded ? 'See Less' : 'See More',
-                    //       style: TextStyle(
-                    //         color: blueColor,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //   ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                      child: Text(
+                        isExpanded ? 'Read Less' : 'Read More',
+                        style: regularTextStyle.copyWith(
+                          color: blueColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -218,7 +232,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     ),
                   ),
                   Text(
-                    '(1k reviews)',
+                    'See More',
                     textAlign: TextAlign.start,
                     style: regularTextStyle.copyWith(
                       color: blueColor,
@@ -231,7 +245,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(0),
-                itemCount: reviews.length,
+                itemCount: _reviewUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 15),
@@ -239,28 +253,26 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              backgroundColor: blueColor,
-                              radius: 20,
-                              child: Icon(
-                                Icons.person,
-                                color: whiteColor,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.asset(
+                                _reviewUsers[index][0],
+                                width: 30,
+                                height: 30,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            const SizedBox(width: 5),
+                            const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  index % 2 == 0
-                                      ? 'Ripat Al Safar'
-                                      : 'Erin Gunawan',
-                                  style: TextStyle(
+                                  _reviewUsers[index][1],
+                                  style: regularTextStyle.copyWith(
                                     color: blueColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                   ),
                                 ),
                                 Row(
@@ -294,11 +306,19 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                                 ),
                               ],
                             ),
+                            const Spacer(),
+                            Text(
+                              _reviewUsers[index][3],
+                              style: mediumTextStyle.copyWith(
+                                color: darkBlueColor,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          reviews[index],
+                          _reviewUsers[index][2],
                           style: regularTextStyle,
                           textAlign: TextAlign.justify,
                         ),
@@ -313,8 +333,8 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
         child: BottomAppBar(
           color: darkBlueColor,
@@ -322,18 +342,30 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Rp 1,500,000.-',
-                style: boldTextStyle.copyWith(
-                  color: whiteColor,
-                  fontSize: 20,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Price:",
+                    style: mediumTextStyle.copyWith(
+                      color: whiteColor,
+                    ),
+                  ),
+                  Text(
+                    'Rp 1,500,000.-',
+                    style: boldTextStyle.copyWith(
+                      color: whiteColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
               ),
               CustomFilledButtonWidget(
-                buttonTitle: "Reserve Now",
-                width: 140,
+                buttonTitle: "Reserve",
+                width: 120,
                 buttonTitleFontSize: 16,
-                buttonTitleFontWeight: FontWeight.w500,
+                buttonTitleFontWeight: FontWeight.w600,
                 onPressed: () {},
               ),
             ],
