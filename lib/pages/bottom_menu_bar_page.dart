@@ -48,7 +48,6 @@ class _BottomMenuBarPageState extends State<BottomMenuBarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: semiWhiteColor,
       body: _selectedPage!['page'],
       bottomNavigationBar: Container(
         margin: const EdgeInsets.only(left: 22, right: 22, bottom: 5),

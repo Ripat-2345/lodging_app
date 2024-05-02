@@ -16,7 +16,7 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 240,
+      height: 245,
       padding: const EdgeInsets.only(
         left: 22,
         top: 40,
@@ -39,14 +39,15 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ImageIcon(
-                    const AssetImage("assets/icons/location_icon.png"),
+                    const AssetImage("assets/icons/lodging_app_icon.png"),
                     color: whiteColor,
-                    size: 20,
+                    size: 26,
                   ),
-                  const SizedBox(width: 2),
+                  const SizedBox(width: 5),
                   Text(
-                    "Bali, Indonesia",
-                    style: mediumTextStyle.copyWith(
+                    "Lodging",
+                    style: semiBoldTextStyle.copyWith(
+                      fontSize: 20,
                       color: whiteColor,
                     ),
                   ),

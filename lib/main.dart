@@ -23,6 +23,10 @@ class LodgingApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: darkBlueColor,
         ),
+        scaffoldBackgroundColor: semiWhiteColor,
+        appBarTheme: AppBarTheme(
+          backgroundColor: semiWhiteColor,
+        ),
       ),
       routes: {
         '/': (context) => const SplashPage(),
