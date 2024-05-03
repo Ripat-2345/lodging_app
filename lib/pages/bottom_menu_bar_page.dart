@@ -49,10 +49,10 @@ class _BottomMenuBarPageState extends State<BottomMenuBarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _selectedPage!['page'],
-      bottomNavigationBar: Container(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
         margin: const EdgeInsets.only(left: 22, right: 22, bottom: 5),
         height: 76,
-        color: Colors.transparent,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: BottomNavigationBar(
