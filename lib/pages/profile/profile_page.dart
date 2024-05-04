@@ -1,5 +1,8 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,25 +21,80 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(width: 5),
-            ImageIcon(
-              const AssetImage("assets/icons/profile_icon.png"),
-              color: darkBlueColor,
-              size: 32,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(width: 5),
+                ImageIcon(
+                  const AssetImage("assets/icons/profile_icon.png"),
+                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
+                  size: 32,
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  "User Profile",
+                  style: semiBoldTextStyle.copyWith(
+                    color: themeProvider.themeApp ? darkBlueColor : whiteColor,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 5),
-            Text(
-              "User Profile",
-              style: semiBoldTextStyle.copyWith(
-                color: darkBlueColor,
-                fontSize: 20,
+            const Spacer(),
+            AnimatedToggleSwitch<bool>.dual(
+              current: themeProvider.themeApp,
+              first: false,
+              second: true,
+              spacing: 5.0,
+              style: const ToggleStyle(
+                borderColor: Colors.transparent,
               ),
-            ),
+              borderWidth: 4.0,
+              height: 40,
+              onChanged: (value) => setState(
+                () => themeProvider.themeApp = value,
+              ),
+              styleBuilder: (value) => ToggleStyle(
+                backgroundColor: value ? whiteColor : blueColor,
+                indicatorColor: value ? darkBlueColor : whiteColor,
+              ),
+              iconBuilder: (value) => value
+                  ? Icon(
+                      Icons.light_mode_rounded,
+                      size: 20,
+                      color: whiteColor,
+                    )
+                  : Icon(
+                      Icons.dark_mode_rounded,
+                      size: 20,
+                      color: blueColor,
+                    ),
+              textBuilder: (value) => value
+                  ? Center(
+                      child: Text(
+                        'Ligth',
+                        style: mediumTextStyle.copyWith(
+                          fontSize: 14,
+                          color: darkBlueColor,
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        'Dark',
+                        style: mediumTextStyle.copyWith(
+                          fontSize: 14,
+                          color: whiteColor,
+                        ),
+                      ),
+                    ),
+            )
           ],
         ),
       ),

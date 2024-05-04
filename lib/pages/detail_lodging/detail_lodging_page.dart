@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/pages/reserve/reserve_lodging_page.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class DetailLodgingPage extends StatefulWidget {
   const DetailLodgingPage({super.key});
@@ -39,6 +41,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -65,7 +68,8 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
                         size: 28,
-                        color: darkBlueColor,
+                        color:
+                            themeProvider.themeApp ? darkBlueColor : whiteColor,
                       ),
                       padding: const EdgeInsets.all(0),
                     ),
@@ -77,7 +81,8 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                       icon: Icon(
                         Icons.favorite_border_rounded,
                         size: 28,
-                        color: darkBlueColor,
+                        color:
+                            themeProvider.themeApp ? darkBlueColor : whiteColor,
                       ),
                       padding: const EdgeInsets.all(0),
                     ),
@@ -89,7 +94,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 child: Text(
                   'Amnaya Resort Nusa Dua',
                   style: semiBoldTextStyle.copyWith(
-                    color: darkBlueColor,
+                    color: themeProvider.themeApp ? darkBlueColor : whiteColor,
                     fontSize: 20,
                   ),
                   maxLines: 2,
@@ -123,7 +128,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               Text(
                 'Facilities',
                 style: semiBoldTextStyle.copyWith(
-                  color: darkBlueColor,
+                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
                   fontSize: 16,
                 ),
               ),
@@ -181,7 +186,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               Text(
                 'Overview',
                 style: semiBoldTextStyle.copyWith(
-                  color: darkBlueColor,
+                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
                   fontSize: 16,
                 ),
               ),
@@ -196,7 +201,11 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                       height: 120,
                       child: Text(
                         _overView,
-                        style: regularTextStyle,
+                        style: regularTextStyle.copyWith(
+                          color: themeProvider.themeApp
+                              ? Colors.black
+                              : whiteColor,
+                        ),
                         textAlign: TextAlign.justify,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 6,
@@ -211,7 +220,8 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                       child: Text(
                         isExpanded ? 'Read Less' : 'Read More',
                         style: regularTextStyle.copyWith(
-                          color: blueColor,
+                          color:
+                              themeProvider.themeApp ? blueColor : yellowColor,
                           fontSize: 12,
                         ),
                       ),
@@ -228,7 +238,8 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     'Reviews',
                     textAlign: TextAlign.start,
                     style: semiBoldTextStyle.copyWith(
-                      color: darkBlueColor,
+                      color:
+                          themeProvider.themeApp ? darkBlueColor : whiteColor,
                       fontSize: 16,
                     ),
                   ),
@@ -236,7 +247,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     'See More',
                     textAlign: TextAlign.start,
                     style: regularTextStyle.copyWith(
-                      color: blueColor,
+                      color: themeProvider.themeApp ? blueColor : yellowColor,
                       fontSize: 12,
                     ),
                   ),
@@ -248,8 +259,13 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 padding: const EdgeInsets.all(0),
                 itemCount: _reviewUsers.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: whiteColor,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -338,7 +354,6 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
           topRight: Radius.circular(20),
         ),
         child: BottomAppBar(
-          color: darkBlueColor,
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

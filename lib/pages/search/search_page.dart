@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lodging_app/pages/search/search_detail_page.dart';
 import 'package:lodging_app/providers/search_provider.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -29,17 +30,17 @@ class SearchPage extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: darkBlueColor, width: 2),
+              border: Border.all(
+                  color: context.read<ThemeProvider>().themeApp
+                      ? darkBlueColor
+                      : whiteColor,
+                  width: 2),
               color: whiteColor,
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.search_rounded,
-                  size: 24,
-                  color: darkBlueColor,
-                ),
+                Icon(Icons.search_rounded, size: 24, color: darkBlueColor),
                 const SizedBox(width: 10),
                 Text(
                   "Search here....",

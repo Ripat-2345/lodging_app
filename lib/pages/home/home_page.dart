@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lodging_app/pages/home/widgets/custom_appbar_home_widget.dart';
 import 'package:lodging_app/pages/home/widgets/most_visited_place_widget.dart';
 import 'package:lodging_app/pages/home/widgets/popular_lodgings_widget.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -34,7 +37,8 @@ class _HomePageState extends State<HomePage> {
                       "Popular lodgings",
                       textAlign: TextAlign.left,
                       style: semiBoldTextStyle.copyWith(
-                        color: darkBlueColor,
+                        color:
+                            themeProvider.themeApp ? darkBlueColor : whiteColor,
                         fontSize: 20,
                       ),
                     ),
@@ -42,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                       'See More',
                       textAlign: TextAlign.start,
                       style: mediumTextStyle.copyWith(
-                        color: blueColor,
+                        color: themeProvider.themeApp ? blueColor : yellowColor,
                       ),
                     ),
                   ],
@@ -63,7 +67,8 @@ class _HomePageState extends State<HomePage> {
                       "Most visited place",
                       textAlign: TextAlign.left,
                       style: semiBoldTextStyle.copyWith(
-                        color: darkBlueColor,
+                        color:
+                            themeProvider.themeApp ? darkBlueColor : whiteColor,
                         fontSize: 20,
                       ),
                     ),
@@ -71,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       'See More',
                       textAlign: TextAlign.start,
                       style: mediumTextStyle.copyWith(
-                        color: blueColor,
+                        color: themeProvider.themeApp ? blueColor : yellowColor,
                       ),
                     ),
                   ],

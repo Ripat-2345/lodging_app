@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppbarHomeWidget extends StatefulWidget {
   const CustomAppbarHomeWidget({super.key});
@@ -28,7 +30,8 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
-        color: darkBlueColor,
+        color:
+            context.read<ThemeProvider>().themeApp ? darkBlueColor : blueColor,
       ),
       child: Column(
         children: [

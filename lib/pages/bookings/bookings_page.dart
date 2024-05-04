@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class BookingsPage extends StatelessWidget {
   const BookingsPage({super.key});
@@ -15,14 +17,18 @@ class BookingsPage extends StatelessWidget {
             const SizedBox(width: 5),
             ImageIcon(
               const AssetImage("assets/icons/booking_icon.png"),
-              color: darkBlueColor,
+              color: context.read<ThemeProvider>().themeApp
+                  ? darkBlueColor
+                  : whiteColor,
               size: 32,
             ),
             const SizedBox(width: 5),
             Text(
               "Recent Bookings",
               style: semiBoldTextStyle.copyWith(
-                color: darkBlueColor,
+                color: context.read<ThemeProvider>().themeApp
+                    ? darkBlueColor
+                    : whiteColor,
                 fontSize: 20,
               ),
             ),
@@ -56,7 +62,9 @@ class BookingsPage extends StatelessWidget {
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
                             ),
-                            color: darkBlueColor,
+                            color: context.read<ThemeProvider>().themeApp
+                                ? darkBlueColor
+                                : whiteColor,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,14 +73,18 @@ class BookingsPage extends StatelessWidget {
                               Text(
                                 "Amnaya Resort Nusa Dua",
                                 style: mediumTextStyle.copyWith(
-                                  color: yellowColor,
+                                  color: context.read<ThemeProvider>().themeApp
+                                      ? yellowColor
+                                      : darkBlueColor,
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
                                 "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
                                 style: lightTextStyle.copyWith(
-                                  color: whiteColor,
+                                  color: context.read<ThemeProvider>().themeApp
+                                      ? whiteColor
+                                      : blueColor,
                                   fontSize: 10,
                                 ),
                               ),
@@ -87,21 +99,33 @@ class BookingsPage extends StatelessWidget {
                                       Text(
                                         "Check-in",
                                         style: mediumTextStyle.copyWith(
-                                          color: yellowColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? yellowColor
+                                              : darkBlueColor,
                                           fontSize: 12,
                                         ),
                                       ),
                                       Text(
                                         "10:00 AM",
                                         style: lightTextStyle.copyWith(
-                                          color: whiteColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? whiteColor
+                                              : blueColor,
                                           fontSize: 10,
                                         ),
                                       ),
                                       Text(
                                         "2 June, 2024",
                                         style: lightTextStyle.copyWith(
-                                          color: whiteColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? whiteColor
+                                              : blueColor,
                                           fontSize: 10,
                                         ),
                                       ),
@@ -124,21 +148,33 @@ class BookingsPage extends StatelessWidget {
                                       Text(
                                         "Check-out",
                                         style: mediumTextStyle.copyWith(
-                                          color: yellowColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? yellowColor
+                                              : darkBlueColor,
                                           fontSize: 12,
                                         ),
                                       ),
                                       Text(
                                         "10:00 AM",
                                         style: lightTextStyle.copyWith(
-                                          color: whiteColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? whiteColor
+                                              : blueColor,
                                           fontSize: 10,
                                         ),
                                       ),
                                       Text(
                                         "14 June, 2024",
                                         style: lightTextStyle.copyWith(
-                                          color: whiteColor,
+                                          color: context
+                                                  .read<ThemeProvider>()
+                                                  .themeApp
+                                              ? whiteColor
+                                              : blueColor,
                                           fontSize: 10,
                                         ),
                                       ),

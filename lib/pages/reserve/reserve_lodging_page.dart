@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:lodging_app/common_widgets/custom_date_picker_widget.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
 import 'package:lodging_app/pages/reserve/widgets/check_box_is_travel_widget.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class ReserveLodgingPage extends StatelessWidget {
   const ReserveLodgingPage({super.key});
@@ -19,13 +21,17 @@ class ReserveLodgingPage extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 28,
-            color: darkBlueColor,
+            color: context.read<ThemeProvider>().themeApp
+                ? darkBlueColor
+                : whiteColor,
           ),
         ),
         title: Text(
           'Reservation Form',
           style: semiBoldTextStyle.copyWith(
-            color: darkBlueColor,
+            color: context.read<ThemeProvider>().themeApp
+                ? darkBlueColor
+                : whiteColor,
             fontSize: 20,
           ),
         ),
@@ -34,7 +40,12 @@ class ReserveLodgingPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          margin: const EdgeInsets.only(left: 22, top: 10, right: 22),
+          margin: const EdgeInsets.only(
+            left: 22,
+            top: 10,
+            right: 22,
+            bottom: 22,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -88,21 +99,29 @@ class ReserveLodgingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Expanded(
-                    child: CustomTextFieldWidget(
+                    child: CustomDatePickerWidget(
                       labelText: "Check In",
+                      hintText: "mm/dd/yy",
                       labelTextStyle:
                           mediumTextStyle.copyWith(color: darkBlueColor),
-                      style: mediumTextStyle.copyWith(color: darkBlueColor),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                        fontSize: 14,
+                      ),
                       hintStyle: regularTextStyle,
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: CustomTextFieldWidget(
+                    child: CustomDatePickerWidget(
                       labelText: "Check Out",
+                      hintText: "mm/dd/yy",
                       labelTextStyle:
                           mediumTextStyle.copyWith(color: darkBlueColor),
-                      style: mediumTextStyle.copyWith(color: darkBlueColor),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                        fontSize: 14,
+                      ),
                       hintStyle: regularTextStyle,
                     ),
                   )
@@ -166,7 +185,6 @@ class ReserveLodgingPage extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
         child: BottomAppBar(
-          color: darkBlueColor,
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,12 +194,18 @@ class ReserveLodgingPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Rp 1,500,000.-",
+                    "Total:",
+                    style: mediumTextStyle.copyWith(
+                      color: whiteColor,
+                    ),
+                  ),
+                  Text(
+                    'Rp 1,500,000.-',
                     style: boldTextStyle.copyWith(
                       color: whiteColor,
                       fontSize: 20,
                     ),
-                  )
+                  ),
                 ],
               ),
               CustomFilledButtonWidget(

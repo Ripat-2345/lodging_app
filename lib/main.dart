@@ -9,6 +9,7 @@ import 'package:lodging_app/pages/home/home_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
 import 'package:lodging_app/providers/home_provider.dart';
 import 'package:lodging_app/providers/search_provider.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
-        ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider())
+        ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider()),
+        ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
       ],
       child: const LodgingApp(),
     ),
@@ -29,6 +31,7 @@ class LodgingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -36,9 +39,17 @@ class LodgingApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: darkBlueColor,
         ),
-        scaffoldBackgroundColor: semiWhiteColor,
+        scaffoldBackgroundColor:
+            themeProvider.themeApp ? semiWhiteColor : darkBlueColor,
         appBarTheme: AppBarTheme(
-          backgroundColor: semiWhiteColor,
+          backgroundColor:
+              themeProvider.themeApp ? semiWhiteColor : darkBlueColor,
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: themeProvider.themeApp ? darkBlueColor : blueColor,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: themeProvider.themeApp ? darkBlueColor : blueColor,
         ),
       ),
       routes: {

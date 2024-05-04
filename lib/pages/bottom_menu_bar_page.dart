@@ -56,7 +56,6 @@ class _BottomMenuBarPageState extends State<BottomMenuBarPage> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: BottomNavigationBar(
-            backgroundColor: darkBlueColor,
             type: BottomNavigationBarType.fixed,
             selectedItemColor: yellowColor,
             unselectedItemColor: whiteColor,
