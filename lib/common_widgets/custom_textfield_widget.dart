@@ -11,6 +11,7 @@ class CustomTextFieldWidget extends StatefulWidget {
   final TextStyle hintStyle;
   final Color borderColor;
   final Color focusedBorderColor;
+  final TextEditingController? controller;
   const CustomTextFieldWidget({
     super.key,
     required this.labelText,
@@ -23,6 +24,7 @@ class CustomTextFieldWidget extends StatefulWidget {
     required this.hintStyle,
     this.borderColor = const Color(0XFF0C356A),
     this.focusedBorderColor = const Color(0XFFFFC436),
+    this.controller,
   });
 
   @override
@@ -44,6 +46,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         SizedBox(
           height: widget.height,
           child: TextField(
+            controller: widget.controller,
             obscureText: widget.obscureText ? isShowPassword : false,
             keyboardType: widget.keyboardType,
             style: widget.style,

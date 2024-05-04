@@ -8,6 +8,7 @@ import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
 import 'package:lodging_app/providers/home_provider.dart';
+import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/providers/search_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
@@ -20,6 +21,9 @@ void main() {
         ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
         ChangeNotifierProvider<SearchProvider>(create: (_) => SearchProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<LodgingProvider>(
+          create: (_) => LodgingProvider(),
+        ),
       ],
       child: const LodgingApp(),
     ),

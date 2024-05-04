@@ -6,9 +6,16 @@ import 'package:lodging_app/common_widgets/custom_text_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
 import 'package:lodging_app/theme.dart';
 
-class VerifyForgotPasswordPage extends StatelessWidget {
+class VerifyForgotPasswordPage extends StatefulWidget {
   const VerifyForgotPasswordPage({super.key});
 
+  @override
+  State<VerifyForgotPasswordPage> createState() =>
+      _VerifyForgotPasswordPageState();
+}
+
+class _VerifyForgotPasswordPageState extends State<VerifyForgotPasswordPage> {
+  var emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +69,7 @@ class VerifyForgotPasswordPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       //todo: Email Address Field
                       CustomTextFieldWidget(
+                        controller: emailController,
                         labelText: "Email Address",
                         labelTextStyle: mediumTextStyle.copyWith(
                           color: darkBlueColor,
@@ -93,7 +101,36 @@ class VerifyForgotPasswordPage extends StatelessWidget {
                           titleFontWeight: FontWeight.w600,
                           titleFontSize: 14,
                           onPressed: () {
-                            Navigator.pop(context);
+                            SnackBar? snackBar;
+                            if (emailController.text.isNotEmpty) {
+                              snackBar = SnackBar(
+                                content: Text(
+                                  "Code has sended to ${emailController.text}",
+                                  style: mediumTextStyle.copyWith(
+                                    color: darkBlueColor,
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: yellowColor,
+                                behavior: SnackBarBehavior.floating,
+                                shape: const StadiumBorder(),
+                              );
+                            } else {
+                              snackBar = SnackBar(
+                                content: Text(
+                                  "Please entry your email!",
+                                  style: mediumTextStyle.copyWith(
+                                    color: darkBlueColor,
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: yellowColor,
+                                behavior: SnackBarBehavior.floating,
+                                shape: const StadiumBorder(),
+                              );
+                            }
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           },
                         ),
                       ),
@@ -102,10 +139,27 @@ class VerifyForgotPasswordPage extends StatelessWidget {
                       CustomFilledButtonWidget(
                         buttonTitle: "Verify Now",
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/reset-password',
-                          );
+                          if (emailController.text.isNotEmpty) {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/reset-password',
+                            );
+                          } else {
+                            SnackBar snackBar = SnackBar(
+                              content: Text(
+                                "Please entry your email!",
+                                style: mediumTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 2),
+                              backgroundColor: yellowColor,
+                              behavior: SnackBarBehavior.floating,
+                              shape: const StadiumBorder(),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
                         },
                       ),
                     ],
