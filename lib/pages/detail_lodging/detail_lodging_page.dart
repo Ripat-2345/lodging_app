@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
+import 'package:lodging_app/pages/reserve/reserve_lodging_page.dart';
 import 'package:lodging_app/theme.dart';
 
 class DetailLodgingPage extends StatefulWidget {
@@ -55,27 +56,27 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 34,
-                    height: 34,
+                    width: 28,
+                    height: 28,
                     child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        size: 34,
+                        size: 28,
                         color: darkBlueColor,
                       ),
                       padding: const EdgeInsets.all(0),
                     ),
                   ),
                   SizedBox(
-                    width: 34,
+                    width: 28,
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(
                         Icons.favorite_border_rounded,
-                        size: 34,
+                        size: 28,
                         color: darkBlueColor,
                       ),
                       padding: const EdgeInsets.all(0),
@@ -366,7 +367,14 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 width: 120,
                 buttonTitleFontSize: 16,
                 buttonTitleFontWeight: FontWeight.w600,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReserveLodgingPage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),

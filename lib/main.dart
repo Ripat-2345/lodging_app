@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/pages/auth/login_page.dart';
 import 'package:lodging_app/pages/auth/register_page.dart';
+import 'package:lodging_app/pages/auth/reset_password_page.dart';
+import 'package:lodging_app/pages/auth/verify_forgot_password_page.dart';
 import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
@@ -44,6 +46,9 @@ class LodgingApp extends StatelessWidget {
         '/get-started': (context) => const GetStartedPage(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
+        '/verify-forgot-password': (context) =>
+            const VerifyForgotPasswordPage(),
+        '/reset-password': (context) => const ResetPasswordPage(),
         '/home': (context) => const HomePage(),
         '/detail-lodging': (context) => const DetailLodgingPage(),
       },
