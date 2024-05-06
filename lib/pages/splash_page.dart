@@ -29,22 +29,22 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: darkBlueColor,
       body: Center(
-        child: Container(
-          width: 250,
-          height: 60,
-          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 13),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            color: whiteColor,
-          ),
-          child: Center(
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 188,
-              height: 34,
-              fit: BoxFit.contain,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/icons/lodging_app_icon.png",
+              width: 110,
+              height: 110,
             ),
-          ),
+            Text(
+              "Lodging",
+              style: semiBoldTextStyle.copyWith(
+                color: whiteColor,
+                fontSize: 34,
+              ),
+            ),
+          ],
         ),
       ),
     );

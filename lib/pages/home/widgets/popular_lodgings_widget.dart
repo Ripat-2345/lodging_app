@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/providers/home_provider.dart';
+import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,9 @@ class _PopularLodgingsWidgetState extends State<PopularLodgingsWidget> {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: darkBlueColor.withOpacity(0.3),
+                        color: context.read<ThemeProvider>().themeApp
+                            ? darkBlueColor.withOpacity(0.2)
+                            : yellowColor.withOpacity(0.05),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Align(

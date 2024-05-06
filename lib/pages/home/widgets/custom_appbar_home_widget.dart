@@ -36,7 +36,7 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

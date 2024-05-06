@@ -96,14 +96,16 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                data[1],
-                                style: semiBoldTextStyle.copyWith(
-                                  color: darkBlueColor,
-                                  fontSize: 16,
+                              SizedBox(
+                                width: 346 - 80,
+                                child: Text(
+                                  data[1],
+                                  style: semiBoldTextStyle.copyWith(
+                                    color: darkBlueColor,
+                                    fontSize: 16,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 3),
                               Text(

@@ -68,7 +68,7 @@ class ResetPasswordPage extends StatelessWidget {
                         style: mediumTextStyle.copyWith(color: darkBlueColor),
                         hintText: "",
                         hintStyle: regularTextStyle,
-                        keyboardType: TextInputType.emailAddress,
+                        obscureText: true,
                       ),
                       const SizedBox(height: 20),
                       // todo: Confirm New Password Field

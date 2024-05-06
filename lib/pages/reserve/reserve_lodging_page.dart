@@ -55,7 +55,6 @@ class ReserveLodgingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -71,8 +70,7 @@ class ReserveLodgingPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 210,
-                        height: 40,
+                        width: 192,
                         child: Text(
                           "Amnaya Resort Nusa Dua",
                           style: semiBoldTextStyle.copyWith(
@@ -83,7 +81,7 @@ class ReserveLodgingPage extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       Text(
                         "Rp 1,500,000.- / 1 night",
                         style: mediumTextStyle.copyWith(

@@ -84,8 +84,8 @@ class BookingsPage extends StatelessWidget {
                                 style: lightTextStyle.copyWith(
                                   color: context.read<ThemeProvider>().themeApp
                                       ? whiteColor
-                                      : blueColor,
-                                  fontSize: 10,
+                                      : Colors.black,
+                                  fontSize: 12,
                                 ),
                               ),
                               const SizedBox(height: 5),
@@ -114,8 +114,8 @@ class BookingsPage extends StatelessWidget {
                                                   .read<ThemeProvider>()
                                                   .themeApp
                                               ? whiteColor
-                                              : blueColor,
-                                          fontSize: 10,
+                                              : Colors.black,
+                                          fontSize: 12,
                                         ),
                                       ),
                                       Text(
@@ -125,8 +125,8 @@ class BookingsPage extends StatelessWidget {
                                                   .read<ThemeProvider>()
                                                   .themeApp
                                               ? whiteColor
-                                              : blueColor,
-                                          fontSize: 10,
+                                              : Colors.black,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
@@ -136,7 +136,10 @@ class BookingsPage extends StatelessWidget {
                                     height: 30,
                                     width: 1,
                                     decoration: BoxDecoration(
-                                      color: whiteColor,
+                                      color:
+                                          context.read<ThemeProvider>().themeApp
+                                              ? whiteColor
+                                              : darkBlueColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
@@ -163,8 +166,8 @@ class BookingsPage extends StatelessWidget {
                                                   .read<ThemeProvider>()
                                                   .themeApp
                                               ? whiteColor
-                                              : blueColor,
-                                          fontSize: 10,
+                                              : Colors.black,
+                                          fontSize: 12,
                                         ),
                                       ),
                                       Text(
@@ -174,8 +177,8 @@ class BookingsPage extends StatelessWidget {
                                                   .read<ThemeProvider>()
                                                   .themeApp
                                               ? whiteColor
-                                              : blueColor,
-                                          fontSize: 10,
+                                              : Colors.black,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],

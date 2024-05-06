@@ -51,24 +51,31 @@ class _GetStartedPageState extends State<GetStartedPage> {
           child: Column(
             children: [
               Container(
-                width: 160,
-                height: 40,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 8,
-                ),
+                width: 170,
+                height: 50,
                 decoration: BoxDecoration(
-                  color: whiteColor,
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: blueColor,
-                    width: 1.5,
-                  ),
+                  color: darkBlueColor,
                 ),
                 child: Center(
-                  child: Image.asset(
-                    "assets/images/logo.png",
-                    fit: BoxFit.cover,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/icons/lodging_app_icon.png",
+                        width: 34,
+                        height: 34,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        "Lodging",
+                        style: semiBoldTextStyle.copyWith(
+                          color: whiteColor,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
