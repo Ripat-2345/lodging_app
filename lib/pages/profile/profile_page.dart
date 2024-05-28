@@ -20,6 +20,36 @@ class _ProfilePageState extends State<ProfilePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _bannerMessageCompletedProfile();
+  }
+
+  // todo: banner discount for new user
+  _bannerMessageCompletedProfile() {
+    var snackBar = SnackBar(
+      content: Text(
+        "Please completed your profile!",
+        style: mediumTextStyle.copyWith(
+          color: darkBlueColor,
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: yellowColor,
+      behavior: SnackBarBehavior.floating,
+      shape: const StadiumBorder(),
+      action: SnackBarAction(
+        label: 'Got it',
+        textColor: blueColor,
+        onPressed: () {},
+      ),
+    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(

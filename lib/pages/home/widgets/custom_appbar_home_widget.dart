@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodging_app/pages/search/search_detail_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -11,9 +12,6 @@ class CustomAppbarHomeWidget extends StatefulWidget {
 }
 
 class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
-  DraggableScrollableController draggableScrollableController =
-      DraggableScrollableController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -98,33 +96,16 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
                     initialChildSize: 0.8,
                     maxChildSize: 1,
                     minChildSize: 0.5,
-                    controller: draggableScrollableController,
                     expand: false,
                     builder: (context, scrollController) {
-                      // print(scrollController.position);
                       return Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(
-                          left: 22,
                           top: 20,
-                          right: 22,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                width: 100,
-                                height: 10,
-                                decoration: BoxDecoration(
-                                  color: darkBlueColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        child: const SearchDetailPage(),
                       );
+                      // return const SearchDetailPage();
                     },
                   );
                   // return

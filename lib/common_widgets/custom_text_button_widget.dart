@@ -7,6 +7,7 @@ class CustomTextButtonWidget extends StatelessWidget {
   final double titleFontSize;
   final FontWeight titleFontWeight;
   final VoidCallback onPressed;
+  final bool isUnderline;
   const CustomTextButtonWidget({
     super.key,
     required this.title,
@@ -14,6 +15,7 @@ class CustomTextButtonWidget extends StatelessWidget {
     this.titleFontSize = 16,
     this.titleFontWeight = FontWeight.w400,
     required this.onPressed,
+    this.isUnderline = true,
   });
 
   @override
@@ -26,7 +28,8 @@ class CustomTextButtonWidget extends StatelessWidget {
           color: titleColor,
           fontSize: titleFontSize,
           fontWeight: titleFontWeight,
-          decoration: TextDecoration.underline,
+          decoration:
+              isUnderline ? TextDecoration.underline : TextDecoration.none,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_date_picker_widget.dart';
+import 'package:lodging_app/common_widgets/custom_dialog_widget.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
 import 'package:lodging_app/pages/reserve/widgets/check_box_is_travel_widget.dart';
@@ -211,7 +212,14 @@ class ReserveLodgingPage extends StatelessWidget {
                 width: 120,
                 buttonTitleFontSize: 16,
                 buttonTitleFontWeight: FontWeight.w600,
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const CustomDialogWidget();
+                    },
+                  );
+                },
               ),
             ],
           ),

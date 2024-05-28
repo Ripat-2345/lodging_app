@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodging_app/common_widgets/custom_text_button_widget.dart';
 import 'package:lodging_app/pages/home/widgets/custom_appbar_home_widget.dart';
 import 'package:lodging_app/pages/home/widgets/most_visited_place_widget.dart';
 import 'package:lodging_app/pages/home/widgets/popular_lodgings_widget.dart';
@@ -14,6 +15,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isNewUser = true;
+  @override
+  void initState() {
+    super.initState();
+    // todo: hide banner discount for new user
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 5), () {
+        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+        if (isNewUser) {
+          setState(() {
+            isNewUser = !isNewUser;
+          });
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
@@ -22,6 +40,51 @@ class _HomePageState extends State<HomePage> {
         children: [
           // todo: custom appbar home
           const CustomAppbarHomeWidget(),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: isNewUser
+                // todo: banner discount for new user
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: MaterialBanner(
+                      content: Text(
+                        'Get 20% off on your first booking.',
+                        style: regularTextStyle.copyWith(
+                          color: whiteColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      leading: Icon(Icons.discount, color: whiteColor),
+                      backgroundColor: darkBlueColor,
+                      actions: [
+                        CustomTextButtonWidget(
+                          title: "Dismiss",
+                          titleColor: yellowColor,
+                          titleFontSize: 14,
+                          titleFontWeight: FontWeight.w400,
+                          isUnderline: false,
+                          onPressed: () {
+                            ScaffoldMessenger.of(context)
+                                .hideCurrentMaterialBanner();
+                            setState(() {
+                              isNewUser = !isNewUser;
+                            });
+                          },
+                        ),
+                        CustomTextButtonWidget(
+                          title: "Find Lodgings",
+                          titleColor: yellowColor,
+                          titleFontSize: 14,
+                          titleFontWeight: FontWeight.w400,
+                          isUnderline: false,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+          ),
           const SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
