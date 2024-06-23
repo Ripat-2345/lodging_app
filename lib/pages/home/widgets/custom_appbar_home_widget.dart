@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lodging_app/pages/search/search_detail_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +15,6 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 245,
       padding: const EdgeInsets.only(
         left: 22,
         top: 40,
@@ -83,64 +81,6 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
                 fit: BoxFit.cover,
               ),
             ],
-          ),
-          const SizedBox(height: 10),
-          // search bar
-          GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) {
-                  return DraggableScrollableSheet(
-                    initialChildSize: 0.8,
-                    maxChildSize: 1,
-                    minChildSize: 0.5,
-                    expand: false,
-                    builder: (context, scrollController) {
-                      return Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                        ),
-                        child: const SearchDetailPage(),
-                      );
-                      // return const SearchDetailPage();
-                    },
-                  );
-                  // return
-                },
-              );
-            },
-            child: Container(
-              width: double.infinity,
-              height: 45,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 12,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: whiteColor,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.search_rounded,
-                    size: 24,
-                    color: darkBlueColor,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    "Search where will you stay....",
-                    style: regularTextStyle.copyWith(
-                      color: darkBlueColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),

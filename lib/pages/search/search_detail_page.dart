@@ -87,7 +87,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
-                                image: AssetImage(data[0]),
+                                image: AssetImage(data['lodging_images'][0]),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -99,7 +99,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                               SizedBox(
                                 width: 346 - 80,
                                 child: Text(
-                                  data[1],
+                                  data['lodging_name'],
                                   style: semiBoldTextStyle.copyWith(
                                     color: darkBlueColor,
                                     fontSize: 16,
@@ -109,7 +109,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                               ),
                               const SizedBox(height: 3),
                               Text(
-                                data[3],
+                                "Rp.${data['price'].toString()}",
                                 style: mediumTextStyle.copyWith(
                                   color: blueColor,
                                 ),

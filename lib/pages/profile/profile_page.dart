@@ -22,11 +22,11 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _bannerMessageCompletedProfile();
+    _snackbarMessageCompletedProfile();
   }
 
-  // todo: banner discount for new user
-  _bannerMessageCompletedProfile() {
+  // todo: banner message completed profile
+  _snackbarMessageCompletedProfile() {
     var snackBar = SnackBar(
       content: Text(
         "Please completed your profile!",
@@ -41,7 +41,9 @@ class _ProfilePageState extends State<ProfilePage> {
       action: SnackBarAction(
         label: 'Got it',
         textColor: blueColor,
-        onPressed: () {},
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
       ),
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -1,17 +1,17 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:lodging_app/providers/home_provider.dart';
+import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
-class MostVisitedPlaceWidget extends StatefulWidget {
-  const MostVisitedPlaceWidget({super.key});
+class ListLodgingsWidget extends StatefulWidget {
+  const ListLodgingsWidget({super.key});
 
   @override
-  State<MostVisitedPlaceWidget> createState() => _MostVisitedPlaceWidgetState();
+  State<ListLodgingsWidget> createState() => _ListLodgingsWidgetState();
 }
 
-class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
+class _ListLodgingsWidgetState extends State<ListLodgingsWidget> {
   AppinioSwiperController appinioSwiperController = AppinioSwiperController();
 
   @override
@@ -19,14 +19,15 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
     return SizedBox(
       width: double.infinity,
       height: 260,
-      child: Consumer<HomeProvider>(
-        builder: (context, homeProvider, child) {
+      child: Consumer<LodgingProvider>(
+        builder: (context, lodgingProvider, child) {
           return AppinioSwiper(
             controller: appinioSwiperController,
             loop: true,
-            cardCount: homeProvider.mostVisitedPlace.length,
+            cardCount: lodgingProvider.listLodgings.length,
             cardBuilder: (context, index) {
-              List dataFacilites = homeProvider.mostVisitedPlace[index][2];
+              List listFacilities =
+                  lodgingProvider.listLodgings[index]['facilities'];
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/detail-lodging');
@@ -47,7 +48,8 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.asset(
-                              homeProvider.mostVisitedPlace[index][0],
+                              lodgingProvider.listLodgings[index]
+                                  ['lodging_images'][0],
                               width: double.infinity,
                               height: 180,
                               fit: BoxFit.cover,
@@ -88,11 +90,18 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  homeProvider.mostVisitedPlace[index][1],
-                                  style: semiBoldTextStyle.copyWith(
-                                    color: darkBlueColor,
-                                    fontSize: 14,
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  child: Text(
+                                    lodgingProvider.listLodgings[index]
+                                        ["lodging_name"],
+                                    style: semiBoldTextStyle.copyWith(
+                                      color: darkBlueColor,
+                                      fontSize: 14,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                                 Row(
@@ -104,7 +113,8 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
                                       color: yellowColor,
                                     ),
                                     Text(
-                                      "4.8(1k)",
+                                      lodgingProvider.listLodgings[index]
+                                          ['rating'],
                                       style: mediumTextStyle.copyWith(
                                         color: darkBlueColor,
                                         fontSize: 12,
@@ -115,7 +125,7 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
                               ],
                             ),
                             Row(
-                              children: dataFacilites.map((data) {
+                              children: listFacilities.map((data) {
                                 return Row(
                                   children: [
                                     Text(
@@ -132,7 +142,7 @@ class _MostVisitedPlaceWidgetState extends State<MostVisitedPlaceWidget> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              homeProvider.mostVisitedPlace[index][3],
+                              "Rp.${lodgingProvider.listLodgings[index]['price'].toString()}",
                               style: boldTextStyle.copyWith(
                                 color: darkBlueColor,
                                 fontSize: 14,

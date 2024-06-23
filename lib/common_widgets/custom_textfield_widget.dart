@@ -38,10 +38,12 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.labelText,
-          style: widget.labelTextStyle,
-        ),
+        widget.labelText.isNotEmpty
+            ? Text(
+                widget.labelText,
+                style: widget.labelTextStyle,
+              )
+            : const SizedBox(),
         const SizedBox(height: 5),
         SizedBox(
           height: widget.height,
@@ -55,12 +57,12 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
               hintStyle: widget.hintStyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: widget.borderColor, width: 2),
+                borderSide: BorderSide(color: widget.borderColor, width: 1),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide:
-                    BorderSide(color: widget.focusedBorderColor, width: 2),
+                    BorderSide(color: widget.focusedBorderColor, width: 1),
               ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,
