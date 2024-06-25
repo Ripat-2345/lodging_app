@@ -224,14 +224,72 @@ class SearchPage extends StatelessWidget {
             ),
             childrenDelegate: SliverChildBuilderDelegate(
               childCount: lodgingProvider.listLodgings.length,
-              (context, index) => ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: InkWell(
-                  onTap: () {},
-                  child: Image.asset(
-                    lodgingProvider.listLodgings[index]['lodging_images'][0],
-                    fit: BoxFit.cover,
-                  ),
+              (context, index) => InkWell(
+                onTap: () {},
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image.asset(
+                        lodgingProvider.listLodgings[index]['lodging_images']
+                            [0],
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.black.withOpacity(0.6),
+                        ),
+                        child: Text(
+                          lodgingProvider.listLodgings[index]['lodging_name'],
+                          style: mediumTextStyle.copyWith(
+                            color: whiteColor,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        width: 60,
+                        height: 25,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: darkBlueColor,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              color: Colors.orangeAccent,
+                              size: 20,
+                            ),
+                            Text(
+                              lodgingProvider.listLodgings[index]['rating'],
+                              style: mediumTextStyle.copyWith(
+                                color: whiteColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
