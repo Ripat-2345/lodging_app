@@ -7,37 +7,28 @@ import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
 class DetailLodgingPage extends StatefulWidget {
-  const DetailLodgingPage({super.key});
+  final Map detailLodging;
+  const DetailLodgingPage({super.key, required this.detailLodging});
 
   @override
   State<DetailLodgingPage> createState() => _DetailLodgingPageState();
 }
 
 class _DetailLodgingPageState extends State<DetailLodgingPage> {
-  final List<String> _images = [
-    'assets/images/lodging1.png',
-    'assets/images/lodging2.png',
-  ];
-
-  final String _overView =
-      'Set in Uluwatu, 100 metres from Cemongkak Beach, Terra Cottages Bali offers accommodation with an outdoor swimming pool, free private parking, a garden and a restaurant. 200 metres from Bingin Beach and 700 metres from Dreamland Beach, the property features a private beach area, as well as a bar.';
-
   bool isExpanded = false;
 
-  final List _reviewUsers = [
-    [
-      "assets/images/user1.png",
-      "Uding Pancong",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "1 days ago",
-    ],
-    [
-      "assets/images/user2.png",
-      "Iqbal Syah Aja",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "3 months ago",
-    ],
-  ];
+  List _lodgingImages = [];
+  List _facilities = [];
+  List _reviewUsers = [];
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _lodgingImages = widget.detailLodging['lodging_images'];
+      _facilities = widget.detailLodging['facilities'];
+      _reviewUsers = widget.detailLodging['reviews'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +83,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               const SizedBox(height: 5),
               Center(
                 child: Text(
-                  'Amnaya Resort Nusa Dua',
+                  widget.detailLodging['lodging_name'],
                   style: semiBoldTextStyle.copyWith(
                     color: themeProvider.themeApp ? darkBlueColor : whiteColor,
                     fontSize: 20,
@@ -105,7 +96,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               Transform.scale(
                 scale: 1.2,
                 child: CarouselSlider(
-                  items: _images.map((item) {
+                  items: _lodgingImages.map((item) {
                     return SizedBox(
                       width: 346,
                       height: 240,
@@ -126,6 +117,51 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               ),
               const SizedBox(height: 40),
               Text(
+                'Overview',
+                style: semiBoldTextStyle.copyWith(
+                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: whiteColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        widget.detailLodging['overview'],
+                        style: regularTextStyle.copyWith(color: Colors.black),
+                        textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 6,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                      child: Text(
+                        isExpanded ? 'Read Less' : 'Read More',
+                        style: mediumTextStyle.copyWith(
+                          color: blueColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
                 'Facilities',
                 style: semiBoldTextStyle.copyWith(
                   color: themeProvider.themeApp ? darkBlueColor : whiteColor,
@@ -135,99 +171,19 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
               Wrap(
                 spacing: 5,
                 runSpacing: 0,
-                children: [
-                  Chip(
+                children: _facilities.map((dataFacilities) {
+                  return Chip(
                     padding: const EdgeInsets.all(2),
                     label: Text(
-                      '3 Bedroom',
+                      dataFacilities,
                       style: mediumTextStyle.copyWith(
                         color: whiteColor,
                       ),
                     ),
                     backgroundColor: blueColor,
                     side: BorderSide.none,
-                  ),
-                  Chip(
-                    padding: const EdgeInsets.all(2),
-                    label: Text(
-                      '2 Bathroom',
-                      style: mediumTextStyle.copyWith(
-                        color: whiteColor,
-                      ),
-                    ),
-                    backgroundColor: blueColor,
-                    side: BorderSide.none,
-                  ),
-                  Chip(
-                    padding: const EdgeInsets.all(2),
-                    label: Text(
-                      '1 Pool',
-                      style: mediumTextStyle.copyWith(
-                        color: whiteColor,
-                      ),
-                    ),
-                    backgroundColor: blueColor,
-                    side: BorderSide.none,
-                  ),
-                  Chip(
-                    padding: const EdgeInsets.all(2),
-                    label: Text(
-                      'Parking',
-                      style: mediumTextStyle.copyWith(
-                        color: whiteColor,
-                      ),
-                    ),
-                    backgroundColor: blueColor,
-                    side: BorderSide.none,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Overview',
-                style: semiBoldTextStyle.copyWith(
-                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 120,
-                      child: Text(
-                        _overView,
-                        style: regularTextStyle.copyWith(
-                          color: themeProvider.themeApp
-                              ? Colors.black
-                              : whiteColor,
-                        ),
-                        textAlign: TextAlign.justify,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 6,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isExpanded = !isExpanded;
-                        });
-                      },
-                      child: Text(
-                        isExpanded ? 'Read Less' : 'Read More',
-                        style: regularTextStyle.copyWith(
-                          color:
-                              themeProvider.themeApp ? blueColor : yellowColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 20),
               Row(
@@ -254,95 +210,76 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                 ],
               ),
               const SizedBox(height: 10),
-              ListView.builder(
+              ListView(
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(0),
-                itemCount: _reviewUsers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 15),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: whiteColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                _reviewUsers[index][0],
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
+                children: _reviewUsers.map(
+                  (review) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: whiteColor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  review['user_pict'],
+                                  width: 36,
+                                  height: 36,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _reviewUsers[index][1],
-                                  style: regularTextStyle.copyWith(
-                                    color: blueColor,
-                                    fontSize: 14,
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    review['username'],
+                                    style: mediumTextStyle.copyWith(
+                                      color: blueColor,
+                                      fontSize: 14,
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: yellowColor,
-                                      size: 16,
-                                    ),
-                                    Icon(
-                                      Icons.star_half,
-                                      color: yellowColor,
-                                      size: 16,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            Text(
-                              _reviewUsers[index][3],
-                              style: mediumTextStyle.copyWith(
-                                color: darkBlueColor,
-                                fontSize: 12,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Icon(
+                                        Icons.star,
+                                        color: Colors.orangeAccent,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        review['rating'],
+                                        style: mediumTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          _reviewUsers[index][2],
-                          style: regularTextStyle,
-                          textAlign: TextAlign.justify,
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            review['comment'],
+                            style: regularTextStyle,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ).toList(),
               ),
             ],
           ),
@@ -369,10 +306,10 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     ),
                   ),
                   Text(
-                    'Rp 1,500,000.-',
+                    'Rp ${widget.detailLodging['price'].toString()} / night',
                     style: boldTextStyle.copyWith(
                       color: whiteColor,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                 ],
@@ -386,7 +323,11 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ReserveLodgingPage(),
+                      builder: (context) => ReserveLodgingPage(
+                        lodgingName: widget.detailLodging['lodging_name'],
+                        price: widget.detailLodging['price'],
+                        lodgingImage: _lodgingImages.first,
+                      ),
                     ),
                   );
                 },

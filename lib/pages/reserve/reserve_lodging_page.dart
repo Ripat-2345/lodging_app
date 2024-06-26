@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lodging_app/common_widgets/custom_date_picker_widget.dart';
-import 'package:lodging_app/common_widgets/custom_dialog_widget.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
-import 'package:lodging_app/pages/reserve/widgets/check_box_is_travel_widget.dart';
+import 'package:lodging_app/pages/payment/payment_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
-class ReserveLodgingPage extends StatelessWidget {
-  const ReserveLodgingPage({super.key});
+class ReserveLodgingPage extends StatefulWidget {
+  final String lodgingName;
+  final int price;
+  final String lodgingImage;
+  const ReserveLodgingPage({
+    super.key,
+    required this.lodgingName,
+    required this.price,
+    required this.lodgingImage,
+  });
+
+  @override
+  State<ReserveLodgingPage> createState() => _ReserveLodgingPageState();
+}
+
+class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
+  int? _priceLodging;
+  DateTime? _checkIn;
+  DateTime? _checkOut;
+  int? _durationStay;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _priceLodging = widget.price;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +86,7 @@ class ReserveLodgingPage extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                      "assets/images/lodging6.png",
+                      widget.lodgingImage,
                       width: 100,
                       height: 80,
                       fit: BoxFit.cover,
@@ -73,7 +99,7 @@ class ReserveLodgingPage extends StatelessWidget {
                       SizedBox(
                         width: 192,
                         child: Text(
-                          "Amnaya Resort Nusa Dua",
+                          widget.lodgingName,
                           style: semiBoldTextStyle.copyWith(
                             color: darkBlueColor,
                             fontSize: 16,
@@ -84,7 +110,7 @@ class ReserveLodgingPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        "Rp 1,500,000.- / 1 night",
+                        "Rp ${_priceLodging.toString()} / night",
                         style: mediumTextStyle.copyWith(
                           color: blueColor,
                         ),
@@ -95,39 +121,72 @@ class ReserveLodgingPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: CustomDatePickerWidget(
-                      labelText: "Check In",
-                      hintText: "mm/dd/yy",
-                      labelTextStyle:
-                          mediumTextStyle.copyWith(color: darkBlueColor),
+                      labelText: "Check In - Check Out",
+                      hintText: _checkIn != null
+                          ? "${DateFormat('dd/MMMM/y').format(_checkIn!)} - ${DateFormat('dd/MMMM/y').format(_checkOut!)}"
+                          : "dd/mm/yy - dd/mm/yy",
+                      labelTextStyle: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
                       style: mediumTextStyle.copyWith(
                         color: darkBlueColor,
                         fontSize: 14,
                       ),
-                      hintStyle: regularTextStyle,
+                      hintStyle: mediumTextStyle.copyWith(color: darkBlueColor),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: CustomDatePickerWidget(
-                      labelText: "Check Out",
-                      hintText: "mm/dd/yy",
-                      labelTextStyle:
-                          mediumTextStyle.copyWith(color: darkBlueColor),
-                      style: mediumTextStyle.copyWith(
-                        color: darkBlueColor,
-                        fontSize: 14,
-                      ),
-                      hintStyle: regularTextStyle,
+                  IconButton(
+                    onPressed: () {
+                      showDateRangePicker(
+                        context: context,
+                        fieldStartLabelText: "Check-in",
+                        fieldEndLabelText: "Check-out",
+                        helpText: "Select date range staying",
+                        initialDateRange: DateTimeRange(
+                          start: DateTime.now(),
+                          end: DateTime.now().add(const Duration(days: 1)),
+                        ),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2050),
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            setState(() {
+                              _checkIn = value.start;
+                              _checkOut = value.start;
+                              _durationStay = value.duration.inDays;
+                              _priceLodging = _priceLodging! * _durationStay!;
+                            });
+                          }
+                        },
+                      );
+                    },
+                    icon: Icon(
+                      Icons.calendar_month_rounded,
+                      size: 34,
+                      color: darkBlueColor,
                     ),
-                  )
+                    padding: const EdgeInsets.all(0),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
-              const CheckBoxIsTravelWidget(),
+              CustomTextFieldWidget(
+                labelText: "How many people stay",
+                labelTextStyle: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
+                style: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
+                hintStyle: regularTextStyle,
+                keyboardType: TextInputType.number,
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -135,9 +194,12 @@ class ReserveLodgingPage extends StatelessWidget {
                   Expanded(
                     child: CustomTextFieldWidget(
                       labelText: "First Name",
-                      labelTextStyle:
-                          mediumTextStyle.copyWith(color: darkBlueColor),
-                      style: mediumTextStyle.copyWith(color: darkBlueColor),
+                      labelTextStyle: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
                       hintStyle: regularTextStyle,
                     ),
                   ),
@@ -145,9 +207,12 @@ class ReserveLodgingPage extends StatelessWidget {
                   Expanded(
                     child: CustomTextFieldWidget(
                       labelText: "Last Name",
-                      labelTextStyle:
-                          mediumTextStyle.copyWith(color: darkBlueColor),
-                      style: mediumTextStyle.copyWith(color: darkBlueColor),
+                      labelTextStyle: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
                       hintStyle: regularTextStyle,
                     ),
                   ),
@@ -156,22 +221,34 @@ class ReserveLodgingPage extends StatelessWidget {
               const SizedBox(height: 20),
               CustomTextFieldWidget(
                 labelText: "Email",
-                labelTextStyle: mediumTextStyle.copyWith(color: darkBlueColor),
-                style: mediumTextStyle.copyWith(color: darkBlueColor),
+                labelTextStyle: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
+                style: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
                 hintStyle: regularTextStyle,
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
                 labelText: "Confirm Email Adress",
-                labelTextStyle: mediumTextStyle.copyWith(color: darkBlueColor),
-                style: mediumTextStyle.copyWith(color: darkBlueColor),
+                labelTextStyle: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
+                style: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
                 hintStyle: regularTextStyle,
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
                 labelText: "Phone Number",
-                labelTextStyle: mediumTextStyle.copyWith(color: darkBlueColor),
-                style: mediumTextStyle.copyWith(color: darkBlueColor),
+                labelTextStyle: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
+                style: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                ),
                 hintStyle: regularTextStyle,
               )
             ],
@@ -199,7 +276,7 @@ class ReserveLodgingPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Rp 1,500,000.-',
+                    'Rp ${_priceLodging.toString()}',
                     style: boldTextStyle.copyWith(
                       color: whiteColor,
                       fontSize: 20,
@@ -213,11 +290,11 @@ class ReserveLodgingPage extends StatelessWidget {
                 buttonTitleFontSize: 16,
                 buttonTitleFontWeight: FontWeight.w600,
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const CustomDialogWidget();
-                    },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PaymentPage(),
+                    ),
                   );
                 },
               ),

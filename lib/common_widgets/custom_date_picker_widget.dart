@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lodging_app/theme.dart';
 
 class CustomDatePickerWidget extends StatelessWidget {
   final String labelText;
@@ -39,38 +38,25 @@ class CustomDatePickerWidget extends StatelessWidget {
           child: TextField(
             keyboardType: keyboardType,
             style: style,
-            readOnly: true,
-            onTap: () {
-              showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
-              );
-            },
             decoration: InputDecoration(
+              enabled: false,
               hintText: hintText,
               hintStyle: hintStyle,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: borderColor, width: 2),
+                borderSide: BorderSide(color: borderColor, width: 1),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: borderColor, width: 2),
+                borderSide: BorderSide(color: borderColor, width: 1),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: focusedBorderColor, width: 2),
+                borderSide: BorderSide(color: focusedBorderColor, width: 1),
               ),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 5,
-              ),
-              suffixIcon: Icon(
-                Icons.calendar_month_rounded,
-                color: darkBlueColor,
-                size: 24,
               ),
             ),
           ),

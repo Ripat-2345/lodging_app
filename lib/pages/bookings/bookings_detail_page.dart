@@ -76,17 +76,10 @@ class BookingsDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                "Your lodging",
+                detailBooking['lodging_name'],
                 style: mediumTextStyle.copyWith(
                   color: darkBlueColor,
                   fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                detailBooking['lodging_name'],
-                style: regularTextStyle.copyWith(
-                  color: blueColor,
                 ),
               ),
               const SizedBox(height: 5),
@@ -96,7 +89,7 @@ class BookingsDetailPage extends StatelessWidget {
                   color: blueColor,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

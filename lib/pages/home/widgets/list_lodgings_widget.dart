@@ -1,5 +1,6 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,16 @@ class _ListLodgingsWidgetState extends State<ListLodgingsWidget> {
                   lodgingProvider.listLodgings[index]['facilities'];
               return GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/detail-lodging');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DetailLodgingPage(
+                          detailLodging: lodgingProvider.listLodgings[index],
+                        );
+                      },
+                    ),
+                  );
                 },
                 child: Container(
                   width: double.infinity,

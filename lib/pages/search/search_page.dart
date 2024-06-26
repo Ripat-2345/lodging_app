@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
+import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/pages/search/search_detail_page.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
@@ -225,7 +226,18 @@ class SearchPage extends StatelessWidget {
             childrenDelegate: SliverChildBuilderDelegate(
               childCount: lodgingProvider.listLodgings.length,
               (context, index) => InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DetailLodgingPage(
+                          detailLodging: lodgingProvider.listLodgings[index],
+                        );
+                      },
+                    ),
+                  );
+                },
                 child: Stack(
                   children: [
                     ClipRRect(
