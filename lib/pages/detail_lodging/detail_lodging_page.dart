@@ -324,7 +324,10 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ReserveLodgingPage(
+                        idLodging: widget.detailLodging['id_lodging'],
                         lodgingName: widget.detailLodging['lodging_name'],
+                        lodgingLocation:
+                            widget.detailLodging['lodging_location'],
                         price: widget.detailLodging['price'],
                         lodgingImage: _lodgingImages.first,
                       ),

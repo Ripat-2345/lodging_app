@@ -9,12 +9,16 @@ import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
 class ReserveLodgingPage extends StatefulWidget {
+  final int idLodging;
   final String lodgingName;
+  final String lodgingLocation;
   final int price;
   final String lodgingImage;
   const ReserveLodgingPage({
     super.key,
+    required this.idLodging,
     required this.lodgingName,
+    required this.lodgingLocation,
     required this.price,
     required this.lodgingImage,
   });
@@ -24,6 +28,13 @@ class ReserveLodgingPage extends StatefulWidget {
 }
 
 class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
+  final _peopleStayController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _confirmEmailController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+
   int? _priceLodging;
   DateTime? _checkIn;
   DateTime? _checkOut;
@@ -35,6 +46,17 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
     setState(() {
       _priceLodging = widget.price;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _peopleStayController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _confirmEmailController.dispose();
+    _phoneNumberController.dispose();
   }
 
   @override
@@ -177,6 +199,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
+                controller: _peopleStayController,
                 labelText: "How many people stay",
                 labelTextStyle: mediumTextStyle.copyWith(
                   color: darkBlueColor,
@@ -193,6 +216,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                 children: [
                   Expanded(
                     child: CustomTextFieldWidget(
+                      controller: _firstNameController,
                       labelText: "First Name",
                       labelTextStyle: mediumTextStyle.copyWith(
                         color: darkBlueColor,
@@ -206,6 +230,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: CustomTextFieldWidget(
+                      controller: _lastNameController,
                       labelText: "Last Name",
                       labelTextStyle: mediumTextStyle.copyWith(
                         color: darkBlueColor,
@@ -220,6 +245,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
+                controller: _emailController,
                 labelText: "Email",
                 labelTextStyle: mediumTextStyle.copyWith(
                   color: darkBlueColor,
@@ -231,6 +257,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
+                controller: _confirmEmailController,
                 labelText: "Confirm Email Adress",
                 labelTextStyle: mediumTextStyle.copyWith(
                   color: darkBlueColor,
@@ -242,6 +269,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
               ),
               const SizedBox(height: 20),
               CustomTextFieldWidget(
+                controller: _phoneNumberController,
                 labelText: "Phone Number",
                 labelTextStyle: mediumTextStyle.copyWith(
                   color: darkBlueColor,
@@ -250,58 +278,87 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                   color: darkBlueColor,
                 ),
                 hintStyle: regularTextStyle,
+                keyboardType: TextInputType.number,
               )
             ],
           ),
         ),
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: BottomAppBar(
-          padding: const EdgeInsets.symmetric(horizontal: 22),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Total:",
-                    style: mediumTextStyle.copyWith(
-                      color: whiteColor,
-                    ),
-                  ),
-                  Text(
-                    'Rp ${_priceLodging.toString()}',
-                    style: boldTextStyle.copyWith(
-                      color: whiteColor,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+      bottomNavigationBar: _durationStay != null
+          ? ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
               ),
-              CustomFilledButtonWidget(
-                buttonTitle: "Pay Now",
-                width: 120,
-                buttonTitleFontSize: 16,
-                buttonTitleFontWeight: FontWeight.w600,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PaymentPage(),
+              child: BottomAppBar(
+                padding: const EdgeInsets.symmetric(horizontal: 22),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Total:",
+                          style: mediumTextStyle.copyWith(
+                            color: whiteColor,
+                          ),
+                        ),
+                        Text(
+                          'Rp ${_priceLodging.toString()}',
+                          style: boldTextStyle.copyWith(
+                            color: whiteColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                },
+                    CustomFilledButtonWidget(
+                      buttonTitle: "Continue",
+                      width: 130,
+                      buttonTitleFontSize: 16,
+                      buttonTitleFontWeight: FontWeight.w600,
+                      onPressed: () {
+                        if (_durationStay != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return PaymentPage(
+                                  dataBooking: {
+                                    "id_booking": 2,
+                                    "check_in": _checkIn.toString(),
+                                    "check_out": _checkOut.toString(),
+                                    "duration":
+                                        "${_durationStay.toString()} day",
+                                    "payment_method": "",
+                                    "total_pay": _priceLodging,
+                                    "id_lodging": widget.idLodging,
+                                    "lodging_name": widget.lodgingName,
+                                    "lodging_location": widget.lodgingLocation,
+                                    "id_user": 1,
+                                    "username": "Dino",
+                                    "first_name": _firstNameController.text,
+                                    "last_name": _lastNameController.text,
+                                    "email": _emailController.text,
+                                    "no_phone": _phoneNumberController.text,
+                                    "count_people_stay":
+                                        int.parse(_peopleStayController.text),
+                                    "status_booking": 1,
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            )
+          : const SizedBox(),
     );
   }
 }

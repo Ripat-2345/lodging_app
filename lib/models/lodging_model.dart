@@ -3,6 +3,8 @@ class LodgingModel {
     {
       "id_lodging": 1,
       "lodging_name": "S Resorts Hidden Valley Bali",
+      "lodging_location":
+          "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
       "lodging_images": [
         "assets/images/lodging4.png",
         "assets/images/lodging4.png",
@@ -40,6 +42,8 @@ class LodgingModel {
     {
       "id_lodging": 2,
       "lodging_name": "Harsono Boutique Resort Bali",
+      "lodging_location":
+          "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
       "lodging_images": [
         "assets/images/lodging5.png",
         "assets/images/lodging4.png",
@@ -77,6 +81,8 @@ class LodgingModel {
     {
       "id_lodging": 3,
       "lodging_name": "Bali Jungle Camping by Amerta",
+      "lodging_location":
+          "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
       "lodging_images": [
         "assets/images/lodging6.png",
         "assets/images/lodging4.png",

@@ -12,7 +12,6 @@ class BookingsDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List listImages = detailBooking['lodging_images'];
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -87,26 +86,6 @@ class BookingsDetailPage extends StatelessWidget {
                 detailBooking['lodging_location'],
                 style: regularTextStyle.copyWith(
                   color: blueColor,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: listImages.map((img) {
-                    return Container(
-                      width: 100,
-                      height: 100,
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage(img),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  }).toList(),
                 ),
               ),
               const SizedBox(height: 20),

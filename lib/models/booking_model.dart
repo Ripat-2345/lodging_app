@@ -11,10 +11,6 @@ class BookingModel {
       "lodging_name": "S Resorts Hidden Valley Bali",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
-      "lodging_images": [
-        "assets/images/lodging6.png",
-        "assets/images/lodging4.png",
-      ],
       "id_user": 1,
       "username": "Dino",
       "first_name": "Dino",
@@ -35,10 +31,6 @@ class BookingModel {
       "lodging_name": "S Resorts Hidden Valley Bali",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
-      "lodging_images": [
-        "assets/images/lodging6.png",
-        "assets/images/lodging4.png",
-      ],
       "id_user": 1,
       "username": "Dino",
       "first_name": "Dino",
@@ -59,10 +51,6 @@ class BookingModel {
       "lodging_name": "S Resorts Hidden Valley Bali",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
-      "lodging_images": [
-        "assets/images/lodging6.png",
-        "assets/images/lodging4.png",
-      ],
       "id_user": 1,
       "username": "Dino",
       "first_name": "Dino",
