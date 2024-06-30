@@ -180,7 +180,7 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                           if (value != null) {
                             setState(() {
                               _checkIn = value.start;
-                              _checkOut = value.start;
+                              _checkOut = value.end;
                               _durationStay = value.duration.inDays;
                               _priceLodging = _priceLodging! * _durationStay!;
                             });

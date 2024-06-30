@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
+import 'package:lodging_app/pages/payment/payment_success_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -240,15 +241,14 @@ class _PaymentPageState extends State<PaymentPage> {
                   color: darkBlueColor,
                 ),
                 initialSelection: _paymentMethod,
-                // onSelected: (value) {
-                //   setState(() {
-                //     _paymentMethod = value!;
-                //   });
-                //   print(value);
-                // },
+                onSelected: (value) {
+                  setState(() {
+                    _paymentMethod = value!;
+                  });
+                },
                 dropdownMenuEntries: [
                   DropdownMenuEntry(
-                    value: "10",
+                    value: "WALLET",
                     label: "My Wallet",
                     labelWidget: Text(
                       "My Wallet",
@@ -256,7 +256,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   DropdownMenuEntry(
-                    value: "10",
+                    value: "MANDIRI",
                     label: "Mandiri",
                     labelWidget: Text(
                       "Mandiri",
@@ -264,7 +264,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   DropdownMenuEntry(
-                    value: "10",
+                    value: "BCA",
                     label: "BCA",
                     labelWidget: Text(
                       "BCA",
@@ -272,7 +272,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   DropdownMenuEntry(
-                    value: "10",
+                    value: "BRI",
                     label: "BRI",
                     labelWidget: Text(
                       "BRI",
@@ -281,10 +281,38 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                 ],
               ),
+              if (_paymentMethod == "WALLET")
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Saldo:",
+                        style: mediumTextStyle.copyWith(
+                          color: darkBlueColor,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        "Rp 5000000",
+                        style: mediumTextStyle.copyWith(
+                          color: blueColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 30),
               CustomFilledButtonWidget(
                 buttonTitle: "Pay Now",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const PaymentSuccessPage();
+                    }),
+                  );
+                },
               ),
             ],
           ),
