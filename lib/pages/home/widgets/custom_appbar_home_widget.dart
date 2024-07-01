@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ class CustomAppbarHomeWidget extends StatefulWidget {
 class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(
@@ -66,11 +69,15 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
           const SizedBox(height: 12),
           Row(
             children: [
-              Text(
-                "Hi Dino, tell us where you\nwant to stay!",
-                style: mediumTextStyle.copyWith(
-                  color: whiteColor,
-                  fontSize: 20,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.65,
+                child: Text(
+                  "Hi ${authProvider.userAuth['username']}, tell us where you want to stay!",
+                  style: mediumTextStyle.copyWith(
+                    color: whiteColor,
+                    fontSize: 20,
+                  ),
+                  maxLines: 3,
                 ),
               ),
               const Spacer(),

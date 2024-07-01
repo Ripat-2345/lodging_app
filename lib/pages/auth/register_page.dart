@@ -5,13 +5,52 @@ import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_text_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
 import 'package:lodging_app/pages/auth/check_box_gender_widget.dart';
+import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/theme.dart';
+import 'package:provider/provider.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  var usernameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+
+  void _validateMsgFormRegister(String msg) {
+    var snackBar = SnackBar(
+      content: Text(
+        msg,
+        style: mediumTextStyle.copyWith(
+          color: darkBlueColor,
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: yellowColor,
+      behavior: SnackBarBehavior.floating,
+      shape: const StadiumBorder(),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -79,6 +118,7 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       // todo: email textfield
                       CustomTextFieldWidget(
+                        controller: usernameController,
                         labelText: "Username",
                         labelTextStyle: mediumTextStyle.copyWith(
                           color: blueColor,
@@ -92,6 +132,7 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       // todo: email textfield
                       CustomTextFieldWidget(
+                        controller: emailController,
                         labelText: "Email Address",
                         labelTextStyle: mediumTextStyle.copyWith(
                           color: blueColor,
@@ -106,6 +147,7 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       // todo: email textfield
                       CustomTextFieldWidget(
+                        controller: passwordController,
                         obscureText: true,
                         labelText: "Password",
                         labelTextStyle: mediumTextStyle.copyWith(
@@ -120,6 +162,7 @@ class RegisterPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       // todo: email textfield
                       CustomTextFieldWidget(
+                        controller: confirmPasswordController,
                         obscureText: true,
                         labelText: "Confirm Password",
                         labelTextStyle: mediumTextStyle.copyWith(
@@ -138,7 +181,37 @@ class RegisterPage extends StatelessWidget {
                       // todo: register button
                       CustomFilledButtonWidget(
                         buttonTitle: "Register",
-                        onPressed: () {},
+                        onPressed: () {
+                          if (usernameController.text.isNotEmpty ||
+                              emailController.text.isNotEmpty ||
+                              passwordController.text.isNotEmpty ||
+                              confirmPasswordController.text.isNotEmpty) {
+                            if (passwordController.text ==
+                                confirmPasswordController.text) {
+                              if (authProvider.register(
+                                usernameController.text,
+                                emailController.text,
+                                confirmPasswordController.text,
+                                "Male",
+                              )) {
+                                Navigator.pop(context);
+                                _validateMsgFormRegister("Berhasil mendaftar!");
+                              } else {
+                                _validateMsgFormRegister(
+                                  "Akun sudah terdaftar!",
+                                );
+                              }
+                            } else {
+                              _validateMsgFormRegister(
+                                "Confirm password salah!",
+                              );
+                            }
+                          } else {
+                            _validateMsgFormRegister(
+                              "Textfield tidak boleh kosong!",
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(height: 10),
                       // todo: back to login page

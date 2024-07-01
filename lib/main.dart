@@ -6,6 +6,7 @@ import 'package:lodging_app/pages/auth/verify_forgot_password_page.dart';
 import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
+import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/booking_provider.dart';
 import 'package:lodging_app/providers/home_provider.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
@@ -24,6 +25,9 @@ void main() {
         ),
         ChangeNotifierProvider<BookingProvider>(
           create: (_) => BookingProvider(),
+        ),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(),
         ),
       ],
       child: const LodgingApp(),

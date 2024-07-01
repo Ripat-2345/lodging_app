@@ -1,5 +1,6 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +14,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final List _listMenuProfile = [
-    ["assets/icons/edit_user_icon.png", "Edit Profile"],
-    ["assets/icons/wallet_icon.png", "Wallet Settings"],
-    ["assets/icons/help_icon.png", "Help Center"],
-    ["assets/icons/logout_icon.png", "Log Out"],
+    ["assets/icons/edit_user_icon.png", "Edit Profile", 'profile'],
+    ["assets/icons/wallet_icon.png", "Wallet Settings", 'wallet'],
+    ["assets/icons/help_icon.png", "Help Center", 'help_center'],
+    ["assets/icons/logout_icon.png", "Log Out", 'logout'],
   ];
 
   @override
@@ -54,6 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -160,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 10),
               Text(
-                "Dino",
+                authProvider.userAuth['username'],
                 style: mediumTextStyle.copyWith(
                   color: darkBlueColor,
                   fontSize: 18,
@@ -168,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 5),
               Text(
-                "dinowahyu@gmail.com",
+                authProvider.userAuth['email'],
                 style: regularTextStyle.copyWith(color: blueColor),
               ),
               const SizedBox(height: 20),
@@ -187,7 +189,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       data[1],
                       style: mediumTextStyle.copyWith(color: darkBlueColor),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      switch (data[2]) {
+                        case 'logout':
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            "/login",
+                            (route) => false,
+                          );
+                          break;
+                        default:
+                      }
+                    },
                   );
                 }).toList(),
               ),
