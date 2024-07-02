@@ -1,5 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:lodging_app/pages/profile/edit_profile_page.dart';
+import 'package:lodging_app/pages/wallet/wallet_page.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
@@ -15,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final List _listMenuProfile = [
     ["assets/icons/edit_user_icon.png", "Edit Profile", 'profile'],
-    ["assets/icons/wallet_icon.png", "Wallet Settings", 'wallet'],
+    ["assets/icons/wallet_icon.png", "My Wallet", 'wallet'],
     ["assets/icons/help_icon.png", "Help Center", 'help_center'],
     ["assets/icons/logout_icon.png", "Log Out", 'logout'],
   ];
@@ -191,6 +193,22 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     onTap: () {
                       switch (data[2]) {
+                        case 'profile':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfilePage(),
+                            ),
+                          );
+                          break;
+                        case 'wallet':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WalletPage(),
+                            ),
+                          );
+                          break;
                         case 'logout':
                           Navigator.pushNamedAndRemoveUntil(
                             context,
