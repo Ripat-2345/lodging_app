@@ -1,5 +1,6 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
+import 'package:lodging_app/pages/help_center/help_center_page.dart';
 import 'package:lodging_app/pages/profile/edit_profile_page.dart';
 import 'package:lodging_app/pages/wallet/wallet_page.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
@@ -206,6 +207,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => const WalletPage(),
+                            ),
+                          );
+                          break;
+                        case 'help_center':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HelpCenterPage(),
                             ),
                           );
                           break;
