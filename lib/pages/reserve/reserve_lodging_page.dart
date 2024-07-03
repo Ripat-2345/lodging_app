@@ -40,6 +40,22 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
   DateTime? _checkOut;
   int? _durationStay;
 
+  void _validateMsgReserved(String msg) {
+    var snackBar = SnackBar(
+      content: Text(
+        msg,
+        style: mediumTextStyle.copyWith(
+          color: darkBlueColor,
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: yellowColor,
+      behavior: SnackBarBehavior.floating,
+      shape: const StadiumBorder(),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -198,17 +214,43 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                 ],
               ),
               const SizedBox(height: 20),
-              CustomTextFieldWidget(
-                controller: _peopleStayController,
-                labelText: "How many people stay",
-                labelTextStyle: mediumTextStyle.copyWith(
-                  color: darkBlueColor,
-                ),
-                style: mediumTextStyle.copyWith(
-                  color: darkBlueColor,
-                ),
-                hintStyle: regularTextStyle,
-                keyboardType: TextInputType.number,
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextFieldWidget(
+                      controller: _peopleStayController,
+                      labelText: "People stay",
+                      labelTextStyle: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      hintStyle: regularTextStyle,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: CustomTextFieldWidget(
+                      controller: TextEditingController(
+                        text: _durationStay != null
+                            ? "${_durationStay.toString()} day"
+                            : "",
+                      ),
+                      isReadOnly: true,
+                      labelText: "Duration stay",
+                      labelTextStyle: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                      hintStyle: regularTextStyle,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Row(
@@ -320,36 +362,64 @@ class _ReserveLodgingPageState extends State<ReserveLodgingPage> {
                       buttonTitleFontSize: 16,
                       buttonTitleFontWeight: FontWeight.w600,
                       onPressed: () {
-                        if (_durationStay != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return PaymentPage(
-                                  dataBooking: {
-                                    "id_booking": 2,
-                                    "check_in": _checkIn.toString(),
-                                    "check_out": _checkOut.toString(),
-                                    "duration":
-                                        "${_durationStay.toString()} day",
-                                    "payment_method": "",
-                                    "total_pay": _priceLodging,
-                                    "id_lodging": widget.idLodging,
-                                    "lodging_name": widget.lodgingName,
-                                    "lodging_location": widget.lodgingLocation,
-                                    "id_user": 1,
-                                    "username": "Dino",
-                                    "first_name": _firstNameController.text,
-                                    "last_name": _lastNameController.text,
-                                    "email": _emailController.text,
-                                    "no_phone": _phoneNumberController.text,
-                                    "count_people_stay":
-                                        int.parse(_peopleStayController.text),
-                                    "status_booking": 1,
-                                  },
+                        if (_peopleStayController.text.isNotEmpty ||
+                            _firstNameController.text.isNotEmpty ||
+                            _lastNameController.text.isNotEmpty ||
+                            _emailController.text.isNotEmpty ||
+                            _confirmEmailController.text.isNotEmpty ||
+                            _phoneNumberController.text.isNotEmpty) {
+                          if (_emailController.text ==
+                              _confirmEmailController.text) {
+                            if (int.tryParse(_peopleStayController.text) !=
+                                null) {
+                              if (int.tryParse(_phoneNumberController.text) !=
+                                  null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return PaymentPage(
+                                        dataBooking: {
+                                          "id_booking": 2,
+                                          "check_in": _checkIn.toString(),
+                                          "check_out": _checkOut.toString(),
+                                          "duration":
+                                              "${_durationStay.toString()} day",
+                                          "payment_method": "",
+                                          "total_pay": _priceLodging,
+                                          "id_lodging": widget.idLodging,
+                                          "lodging_name": widget.lodgingName,
+                                          "lodging_location":
+                                              widget.lodgingLocation,
+                                          "id_user": 1,
+                                          "username": "Dino",
+                                          "first_name":
+                                              _firstNameController.text,
+                                          "last_name": _lastNameController.text,
+                                          "email": _emailController.text,
+                                          "no_phone":
+                                              _phoneNumberController.text,
+                                          "count_people_stay": int.parse(
+                                              _peopleStayController.text),
+                                          "status_booking": 1,
+                                        },
+                                      );
+                                    },
+                                  ),
                                 );
-                              },
-                            ),
+                              } else {
+                                _validateMsgReserved(
+                                    "Phone number harus angka!");
+                              }
+                            } else {
+                              _validateMsgReserved("People stay harus angka!");
+                            }
+                          } else {
+                            _validateMsgReserved("Confirm email salah!");
+                          }
+                        } else {
+                          _validateMsgReserved(
+                            "Semua textfield harus di isi!",
                           );
                         }
                       },

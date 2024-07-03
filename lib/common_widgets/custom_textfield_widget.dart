@@ -12,6 +12,7 @@ class CustomTextFieldWidget extends StatefulWidget {
   final Color borderColor;
   final Color focusedBorderColor;
   final TextEditingController? controller;
+  final bool isReadOnly;
   const CustomTextFieldWidget({
     super.key,
     required this.labelText,
@@ -25,6 +26,7 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.borderColor = const Color(0XFF0C356A),
     this.focusedBorderColor = const Color(0XFFFFC436),
     this.controller,
+    this.isReadOnly = false,
   });
 
   @override
@@ -33,6 +35,7 @@ class CustomTextFieldWidget extends StatefulWidget {
 
 class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
   bool isShowPassword = true;
+  bool isReadOnly = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,6 +55,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             obscureText: widget.obscureText ? isShowPassword : false,
             keyboardType: widget.keyboardType,
             style: widget.style,
+            readOnly: widget.isReadOnly ? isReadOnly : false,
             decoration: InputDecoration(
               hintText: widget.hintText,
               hintStyle: widget.hintStyle,
