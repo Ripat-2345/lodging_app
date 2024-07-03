@@ -57,11 +57,38 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: () {},
-                child: ImageIcon(
-                  const AssetImage("assets/icons/notification_icon.png"),
-                  color: whiteColor,
-                  size: 24,
+                onTap: () {
+                  Navigator.pushNamed(context, '/notification');
+                },
+                child: Stack(
+                  children: [
+                    ImageIcon(
+                      const AssetImage("assets/icons/notification_icon.png"),
+                      color: whiteColor,
+                      size: 28,
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          color: yellowColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "2",
+                            style: boldTextStyle.copyWith(
+                              color: darkBlueColor,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/pages/payment/payment_success_page.dart';
+import 'package:lodging_app/pages/payment/payment_transfer_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,23 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   String _paymentMethod = "";
+
+  void _validateMsgPaymentForm(String msg) {
+    var snackBar = SnackBar(
+      content: Text(
+        msg,
+        style: mediumTextStyle.copyWith(
+          color: darkBlueColor,
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: yellowColor,
+      behavior: SnackBarBehavior.floating,
+      shape: const StadiumBorder(),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -306,12 +324,27 @@ class _PaymentPageState extends State<PaymentPage> {
               CustomFilledButtonWidget(
                 buttonTitle: "Pay Now",
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return const PaymentSuccessPage();
-                    }),
-                  );
+                  if (_paymentMethod.isNotEmpty) {
+                    if (_paymentMethod == "WALLET") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const PaymentSuccessPage();
+                        }),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentTransferPage(
+                            paymentMethod: _paymentMethod,
+                          ),
+                        ),
+                      );
+                    }
+                  } else {
+                    _validateMsgPaymentForm("Pilih metode pembayaran!");
+                  }
                 },
               ),
             ],

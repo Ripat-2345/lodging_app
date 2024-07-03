@@ -5,6 +5,7 @@ import 'package:lodging_app/pages/auth/reset_password_page.dart';
 import 'package:lodging_app/pages/auth/verify_forgot_password_page.dart';
 import 'package:lodging_app/pages/get_started_page.dart';
 import 'package:lodging_app/pages/home/home_page.dart';
+import 'package:lodging_app/pages/notification/notification_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/booking_provider.dart';
@@ -70,6 +71,7 @@ class LodgingApp extends StatelessWidget {
             const VerifyForgotPasswordPage(),
         '/reset-password': (context) => const ResetPasswordPage(),
         '/home': (context) => const HomePage(),
+        '/notification': (context) => const NotificationPage(),
       },
     );
   }
