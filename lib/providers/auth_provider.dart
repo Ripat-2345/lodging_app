@@ -44,4 +44,23 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  bool editUser(String userPict, String username, String address,
+      String noPhone, String email, String password) {
+    var checkDataRegister = _dataUsers.where(
+      (element) => element['email'] == email && element['password'] == password,
+    );
+    if (checkDataRegister.isNotEmpty) {
+      checkDataRegister.first['username'] = username;
+      checkDataRegister.first['user_pict'] = userPict;
+      checkDataRegister.first['address'] = address;
+      checkDataRegister.first['no_phone'] = noPhone;
+
+      _userAuth = checkDataRegister.first;
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

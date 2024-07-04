@@ -3,7 +3,7 @@ class UserModel {
     {
       "username": "Dino",
       "password": "dino123",
-      "user_pict": "assets/images/dino.PNG",
+      "user_pict": "",
       "email": "dinowahyu@gmail.com",
       "no_phone": "",
       "address": "",

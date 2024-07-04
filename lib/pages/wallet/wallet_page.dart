@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
+import 'package:lodging_app/pages/top_up/top_up_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +89,14 @@ class _WalletPageState extends State<WalletPage> {
                     buttonTitle: "Top Up",
                     width: 120,
                     height: 40,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TopUpPage(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

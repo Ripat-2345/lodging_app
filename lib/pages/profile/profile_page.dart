@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:lodging_app/pages/help_center/help_center_page.dart';
@@ -155,13 +157,24 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 width: 100,
                 height: 100,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/dino.PNG"),
-                    fit: BoxFit.cover,
-                  ),
+                  border: Border.all(color: darkBlueColor),
                 ),
+                child: authProvider.userAuth['user_pict'].isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.file(
+                          File(authProvider.userAuth['user_pict']),
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Center(
+                        child: ImageIcon(
+                          const AssetImage("assets/icons/profile_icon.png"),
+                          color: darkBlueColor,
+                        ),
+                      ),
               ),
               const SizedBox(height: 10),
               Text(
