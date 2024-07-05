@@ -203,7 +203,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        "People stay",
+                        "People Stay",
                         style: semiBoldTextStyle.copyWith(
                           color: darkBlueColor,
                           fontSize: 16,
@@ -324,27 +324,265 @@ class _PaymentPageState extends State<PaymentPage> {
               CustomFilledButtonWidget(
                 buttonTitle: "Pay Now",
                 onPressed: () {
-                  if (_paymentMethod.isNotEmpty) {
-                    if (_paymentMethod == "WALLET") {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return const PaymentSuccessPage();
-                        }),
-                      );
-                    } else {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PaymentTransferPage(
-                            paymentMethod: _paymentMethod,
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: whiteColor,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Your Reservation",
+                                style: boldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                "Periksa kembali reservasi anda!",
+                                style: mediumTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              const Divider(),
+                              Text(
+                                "Lodging",
+                                style: semiBoldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              Text(
+                                widget.dataBooking['lodging_name'],
+                                style: mediumTextStyle.copyWith(
+                                  color: blueColor,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Check In",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        DateFormat("d MMM y").format(
+                                          DateTime.parse(
+                                            widget.dataBooking['check_in'],
+                                          ),
+                                        ),
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "Duration",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.dataBooking['duration'],
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(width: 66),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Check Out",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        DateFormat("d MMM y").format(
+                                          DateTime.parse(
+                                            widget.dataBooking['check_out'],
+                                          ),
+                                        ),
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "People Stay",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${widget.dataBooking['count_people_stay'].toString()} people",
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Total Payment",
+                                style: semiBoldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              Text(
+                                "Rp. ${widget.dataBooking['total_pay'].toString()}",
+                                style: mediumTextStyle.copyWith(
+                                  color: blueColor,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Payment Method",
+                                style: semiBoldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              Text(
+                                _paymentMethod,
+                                style: mediumTextStyle.copyWith(
+                                  color: blueColor,
+                                ),
+                              ),
+                              const Divider(),
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "First Name",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.dataBooking['first_name'],
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(width: 50),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Last Name",
+                                        style: semiBoldTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.dataBooking['last_name'],
+                                        style: mediumTextStyle.copyWith(
+                                          color: blueColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Email",
+                                style: semiBoldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              Text(
+                                widget.dataBooking['email'],
+                                style: mediumTextStyle.copyWith(
+                                  color: blueColor,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "Phone Number",
+                                style: semiBoldTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                              Text(
+                                widget.dataBooking['no_phone'],
+                                style: mediumTextStyle.copyWith(
+                                  color: blueColor,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        actions: [
+                          CustomFilledButtonWidget(
+                            width: 110,
+                            height: 40,
+                            buttonTitle: "Cancel",
+                            buttonColor: Colors.grey,
+                            buttonTitleColor: whiteColor,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          CustomFilledButtonWidget(
+                            width: 110,
+                            height: 40,
+                            buttonTitle: "Pay",
+                            onPressed: () {
+                              if (_paymentMethod.isNotEmpty) {
+                                if (_paymentMethod == "WALLET") {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return const PaymentSuccessPage();
+                                    }),
+                                  );
+                                } else {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PaymentTransferPage(
+                                        paymentMethod: _paymentMethod,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              } else {
+                                _validateMsgPaymentForm(
+                                    "Pilih metode pembayaran!");
+                              }
+                            },
+                          ),
+                        ],
                       );
-                    }
-                  } else {
-                    _validateMsgPaymentForm("Pilih metode pembayaran!");
-                  }
+                    },
+                  );
                 },
               ),
             ],

@@ -42,6 +42,7 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage> {
               fontSize: 30,
             ),
           ),
+          const SizedBox(height: 10),
           Text(
             "Please wait you will direct to home page",
             style: mediumTextStyle.copyWith(

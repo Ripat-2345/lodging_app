@@ -11,6 +11,7 @@ import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/booking_provider.dart';
 import 'package:lodging_app/providers/home_provider.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
+import 'package:lodging_app/providers/notification_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,9 @@ void main() {
         ),
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider<NotificationProvider>(
+          create: (_) => NotificationProvider(),
         ),
       ],
       child: const LodgingApp(),

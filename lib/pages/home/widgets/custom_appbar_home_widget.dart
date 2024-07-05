@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
+import 'package:lodging_app/providers/notification_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
   @override
   Widget build(BuildContext context) {
     var authProvider = Provider.of<AuthProvider>(context);
+    var notificationProvider = Provider.of<NotificationProvider>(context);
 
     return Container(
       width: double.infinity,
@@ -79,7 +81,8 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
                         ),
                         child: Center(
                           child: Text(
-                            "2",
+                            notificationProvider.listNotification.length
+                                .toString(),
                             style: boldTextStyle.copyWith(
                               color: darkBlueColor,
                               fontSize: 10,
@@ -110,7 +113,7 @@ class _CustomAppbarHomeWidgetState extends State<CustomAppbarHomeWidget> {
               const Spacer(),
               Image.asset(
                 "assets/images/illustration1.png",
-                width: 111,
+                width: 100,
                 height: 85,
                 fit: BoxFit.cover,
               ),

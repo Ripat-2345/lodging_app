@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
 class NotificationDetailPage extends StatelessWidget {
-  const NotificationDetailPage({super.key});
+  final Map detailNotification;
+  const NotificationDetailPage({super.key, required this.detailNotification});
 
   @override
   Widget build(BuildContext context) {
@@ -61,22 +63,30 @@ class NotificationDetailPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: blueColor,
+                      color: detailNotification['label'] == "Transaction"
+                          ? blueColor
+                          : yellowColor,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Transaction",
+                          detailNotification['label'],
                           style: mediumTextStyle.copyWith(
-                            color: whiteColor,
+                            color: detailNotification['label'] == "Transaction"
+                                ? whiteColor
+                                : darkBlueColor,
                           ),
                         ),
                       ],
                     ),
                   ),
                   Text(
-                    "24 may 2024",
+                    DateFormat("d MMM y").format(
+                      DateTime.parse(
+                        detailNotification['notification_date'],
+                      ),
+                    ),
                     style: regularTextStyle.copyWith(
                       color: darkBlueColor,
                       fontWeight: FontWeight.w300,
@@ -87,14 +97,14 @@ class NotificationDetailPage extends StatelessWidget {
               const Divider(),
               const SizedBox(height: 10),
               Text(
-                "Title about notifaction",
+                detailNotification['title'],
                 style: semiBoldTextStyle.copyWith(
                   color: darkBlueColor,
                   fontSize: 16,
                 ),
               ),
               Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+                detailNotification['content'],
                 style: regularTextStyle,
                 textAlign: TextAlign.justify,
               ),
