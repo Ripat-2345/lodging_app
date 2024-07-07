@@ -13,6 +13,7 @@ class CustomTextFieldWidget extends StatefulWidget {
   final Color focusedBorderColor;
   final TextEditingController? controller;
   final bool isReadOnly;
+  final VoidCallback? onTap;
   const CustomTextFieldWidget({
     super.key,
     required this.labelText,
@@ -27,6 +28,7 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.focusedBorderColor = const Color(0XFFFFC436),
     this.controller,
     this.isReadOnly = false,
+    this.onTap,
   });
 
   @override
@@ -56,6 +58,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             keyboardType: widget.keyboardType,
             style: widget.style,
             readOnly: widget.isReadOnly ? isReadOnly : false,
+            onTap: widget.onTap ?? () {},
             decoration: InputDecoration(
               hintText: widget.hintText,
               hintStyle: widget.hintStyle,

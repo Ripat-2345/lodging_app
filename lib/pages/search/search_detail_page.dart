@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -61,69 +62,98 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
           right: 22,
           bottom: 10,
         ),
-        child: Builder(
-          builder: (context) {
-            if (searchController.text.isEmpty) {
-              return const SizedBox();
-            } else {
-              return Column(
-                children: lodgingProvider.searchLodgingMatch.map((data) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: double.infinity,
-                      height: 60,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: AssetImage(data['lodging_images'][0]),
-                                fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Builder(
+            builder: (context) {
+              if (searchController.text.isEmpty) {
+                return const SizedBox();
+              } else {
+                return Column(
+                  children: lodgingProvider.searchLodgingMatch.map((data) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DetailLodgingPage(detailLodging: data);
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 100,
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage(data['lodging_images'][0]),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 346 - 80,
-                                child: Text(
-                                  data['lodging_name'],
-                                  style: semiBoldTextStyle.copyWith(
-                                    color: darkBlueColor,
-                                    fontSize: 16,
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 346 - 110,
+                                  child: Text(
+                                    data['lodging_name'],
+                                    style: semiBoldTextStyle.copyWith(
+                                      color: darkBlueColor,
+                                      fontSize: 16,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              const SizedBox(height: 3),
-                              Text(
-                                "Rp.${data['price'].toString()}",
-                                style: mediumTextStyle.copyWith(
-                                  color: blueColor,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      color: Colors.orangeAccent,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      data['rating'],
+                                      style: mediumTextStyle.copyWith(
+                                        color: darkBlueColor,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                const SizedBox(height: 5),
+                                Text(
+                                  "Rp.${data['price'].toString()}",
+                                  style: semiBoldTextStyle.copyWith(
+                                    color: blueColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
-              );
-            }
-          },
+                    );
+                  }).toList(),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

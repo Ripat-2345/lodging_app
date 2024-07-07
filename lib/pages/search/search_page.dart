@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
+import 'package:lodging_app/common_widgets/custom_bottomsheet_widget.dart';
 import 'package:lodging_app/pages/detail_lodging/detail_lodging_page.dart';
 import 'package:lodging_app/pages/search/search_detail_page.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
@@ -8,11 +8,17 @@ import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  @override
   Widget build(BuildContext context) {
+    var lodgingProvider = Provider.of<LodgingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -69,130 +75,8 @@ class SearchPage extends StatelessWidget {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    enableDrag: true,
-                    showDragHandle: true,
                     builder: (context) {
-                      return DraggableScrollableSheet(
-                        maxChildSize: 1,
-                        minChildSize: 0.5,
-                        expand: false,
-                        builder: (context, scrollController) {
-                          return Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Filter",
-                                  style: boldTextStyle.copyWith(
-                                    color: darkBlueColor,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                ListView(
-                                  shrinkWrap: true,
-                                  children: [
-                                    Text(
-                                      "Rating",
-                                      style: semiBoldTextStyle.copyWith(
-                                        color: darkBlueColor,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Wrap(
-                                      spacing: 10,
-                                      runSpacing: 10,
-                                      children: [
-                                        ActionChip(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
-                                          label: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Icon(
-                                                Icons.star_rounded,
-                                                color: Colors.deepOrangeAccent,
-                                              ),
-                                              const SizedBox(width: 2),
-                                              Text(
-                                                "4 Keatas",
-                                                style: mediumTextStyle.copyWith(
-                                                  color: darkBlueColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Text(
-                                      "Harga",
-                                      style: semiBoldTextStyle.copyWith(
-                                        color: darkBlueColor,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: CustomTextFieldWidget(
-                                            labelText: "",
-                                            labelTextStyle:
-                                                regularTextStyle.copyWith(
-                                              color: blueColor,
-                                            ),
-                                            style: mediumTextStyle.copyWith(
-                                                color: darkBlueColor),
-                                            hintStyle: mediumTextStyle.copyWith(
-                                              color: Colors.grey,
-                                            ),
-                                            borderColor: Colors.black,
-                                            focusedBorderColor: darkBlueColor,
-                                            hintText: "Rp Terendah",
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: CustomTextFieldWidget(
-                                            labelText: "",
-                                            labelTextStyle:
-                                                regularTextStyle.copyWith(
-                                              color: blueColor,
-                                            ),
-                                            style: mediumTextStyle.copyWith(
-                                                color: darkBlueColor),
-                                            hintStyle: mediumTextStyle.copyWith(
-                                              color: Colors.grey,
-                                            ),
-                                            borderColor: Colors.black,
-                                            focusedBorderColor: darkBlueColor,
-                                            hintText: "Rp Tertinggi",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                          // return const SearchDetailPage();
-                        },
-                      );
-                      // return
+                      return const CustomBottomsheetWidget();
                     },
                   );
                 },
@@ -207,107 +91,116 @@ class SearchPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Consumer<LodgingProvider>(
-        builder: (context, lodgingProvider, child) {
-          return GridView.custom(
-            gridDelegate: SliverQuiltedGridDelegate(
-              crossAxisCount: 3,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 1,
-              pattern: [
-                // const QuiltedGridTile(2, 2),
-                const QuiltedGridTile(1, 1),
-                const QuiltedGridTile(2, 2),
-                const QuiltedGridTile(1, 1),
-                const QuiltedGridTile(1, 2),
-                const QuiltedGridTile(1, 1),
-              ],
-            ),
-            childrenDelegate: SliverChildBuilderDelegate(
-              childCount: lodgingProvider.listLodgings.length,
-              (context, index) => InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return DetailLodgingPage(
-                          detailLodging: lodgingProvider.listLodgings[index],
+      body: lodgingProvider.isFilteredLodging
+          ? Center(
+              child: CircularProgressIndicator(
+                color: darkBlueColor,
+              ),
+            )
+          : Consumer<LodgingProvider>(
+              builder: (context, lodgingProvider, child) {
+                return GridView.custom(
+                  gridDelegate: SliverQuiltedGridDelegate(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    pattern: [
+                      // const QuiltedGridTile(2, 2),
+                      const QuiltedGridTile(1, 1),
+                      const QuiltedGridTile(2, 2),
+                      const QuiltedGridTile(1, 1),
+                      const QuiltedGridTile(1, 2),
+                      const QuiltedGridTile(1, 1),
+                    ],
+                  ),
+                  childrenDelegate: SliverChildBuilderDelegate(
+                    childCount: lodgingProvider.listLodgings.length,
+                    (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DetailLodgingPage(
+                                detailLodging:
+                                    lodgingProvider.listLodgings[index],
+                              );
+                            },
+                          ),
                         );
                       },
-                    ),
-                  );
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Image.asset(
-                        lodgingProvider.listLodgings[index]['lodging_images']
-                            [0],
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.black.withOpacity(0.6),
-                        ),
-                        child: Text(
-                          lodgingProvider.listLodgings[index]['lodging_name'],
-                          style: mediumTextStyle.copyWith(
-                            color: whiteColor,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        width: 60,
-                        height: 25,
-                        margin: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: darkBlueColor,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.star_rounded,
-                              color: Colors.orangeAccent,
-                              size: 20,
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.asset(
+                              lodgingProvider.listLodgings[index]
+                                  ['lodging_images'][0],
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
                             ),
-                            Text(
-                              lodgingProvider.listLodgings[index]['rating'],
-                              style: mediumTextStyle.copyWith(
-                                color: whiteColor,
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.black.withOpacity(0.6),
+                              ),
+                              child: Text(
+                                lodgingProvider.listLodgings[index]
+                                    ['lodging_name'],
+                                style: mediumTextStyle.copyWith(
+                                  color: whiteColor,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              width: 60,
+                              height: 25,
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: darkBlueColor,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.orangeAccent,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    lodgingProvider.listLodgings[index]
+                                        ['rating'],
+                                    style: mediumTextStyle.copyWith(
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
