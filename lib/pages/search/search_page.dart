@@ -75,6 +75,7 @@ class _SearchPageState extends State<SearchPage> {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
+                    useSafeArea: true,
                     builder: (context) {
                       return const CustomBottomsheetWidget();
                     },

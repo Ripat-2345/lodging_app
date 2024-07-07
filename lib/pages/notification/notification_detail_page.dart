@@ -25,7 +25,7 @@ class NotificationDetailPage extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Transaction',
+          detailNotification['label'],
           style: semiBoldTextStyle.copyWith(
             color: context.read<ThemeProvider>().themeApp
                 ? darkBlueColor

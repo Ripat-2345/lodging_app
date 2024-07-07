@@ -51,7 +51,7 @@ class _NotificationPageState extends State<NotificationPage> {
         ),
         child: SingleChildScrollView(
           child: Column(
-            children: notificationProvider.listNotification.map(
+            children: notificationProvider.listNotification.reversed.map(
               (data) {
                 return InkWell(
                   onTap: () {

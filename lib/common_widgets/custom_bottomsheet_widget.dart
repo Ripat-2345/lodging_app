@@ -87,7 +87,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 8,
                     runSpacing: 5,
@@ -118,7 +118,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       },
                     ).toList(),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Text(
                     "Harga",
                     style: semiBoldTextStyle.copyWith(
@@ -126,7 +126,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       Expanded(
@@ -196,7 +196,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 8,
                     runSpacing: 5,
@@ -238,7 +238,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       },
                     ).toList(),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -261,7 +261,7 @@ class _CustomBottomsheetWidgetState extends State<CustomBottomsheetWidget> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 8,
                     runSpacing: 5,

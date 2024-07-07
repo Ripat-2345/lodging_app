@@ -333,7 +333,6 @@ class _PaymentPageState extends State<PaymentPage> {
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: whiteColor,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
