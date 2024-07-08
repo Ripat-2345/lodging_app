@@ -26,38 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    _snackbarMessageCompletedProfile();
-  }
-
-  // todo: banner message completed profile
-  _snackbarMessageCompletedProfile() {
-    var snackBar = SnackBar(
-      content: Text(
-        "Please completed your profile!",
-        style: mediumTextStyle.copyWith(
-          color: darkBlueColor,
-        ),
-      ),
-      duration: const Duration(seconds: 2),
-      backgroundColor: yellowColor,
-      behavior: SnackBarBehavior.floating,
-      shape: const StadiumBorder(),
-      action: SnackBarAction(
-        label: 'Got it',
-        textColor: blueColor,
-        onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        },
-      ),
-    );
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
     var authProvider = Provider.of<AuthProvider>(context);

@@ -260,6 +260,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       authProvider.userAuth['password'],
                     );
                     Navigator.pop(context);
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          'Profil Berhasil Diubah !',
+                          style: mediumTextStyle.copyWith(color: darkBlueColor),
+                        ),
+                        duration: const Duration(seconds: 2),
+                        backgroundColor: yellowColor,
+                        behavior: SnackBarBehavior.floating,
+                        shape: const StadiumBorder(),
+                      ));
+                    });
                   },
                 ),
               ),

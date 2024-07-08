@@ -90,26 +90,16 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Popular lodgings",
-                  textAlign: TextAlign.left,
-                  style: semiBoldTextStyle.copyWith(
-                    color: themeProvider.themeApp ? darkBlueColor : whiteColor,
-                    fontSize: 20,
-                  ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Popular lodgings",
+                textAlign: TextAlign.left,
+                style: semiBoldTextStyle.copyWith(
+                  color: themeProvider.themeApp ? darkBlueColor : whiteColor,
+                  fontSize: 20,
                 ),
-                Text(
-                  'See More',
-                  textAlign: TextAlign.start,
-                  style: mediumTextStyle.copyWith(
-                    color: themeProvider.themeApp ? blueColor : yellowColor,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           const SizedBox(height: 10),

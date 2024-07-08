@@ -16,6 +16,7 @@ class BookingsPage extends StatefulWidget {
 
 class _BookingsPageState extends State<BookingsPage> {
   bool _loadingBookings = false;
+  int _selectedFilterIndex = 0;
 
   void _onLoading() {
     setState(() {
@@ -65,59 +66,6 @@ class _BookingsPageState extends State<BookingsPage> {
             ),
           ],
         ),
-        actions: [
-          GestureDetector(
-            onTapDown: (details) {
-              final offset = details.globalPosition;
-              showMenu(
-                context: context,
-                color: whiteColor,
-                position: RelativeRect.fromLTRB(
-                  offset.dx,
-                  offset.dy,
-                  MediaQuery.of(context).size.width - offset.dx,
-                  MediaQuery.of(context).size.height - offset.dy,
-                ),
-                items: [
-                  PopupMenuItem(
-                    child: Text(
-                      "On Progress",
-                      style: mediumTextStyle.copyWith(
-                        color: darkBlueColor,
-                      ),
-                    ),
-                    onTap: () {
-                      bookingProvider.statusBooking = 1;
-                      _onLoading();
-                    },
-                  ),
-                  PopupMenuItem(
-                    child: Text(
-                      "Recent Booking",
-                      style: mediumTextStyle.copyWith(
-                        color: darkBlueColor,
-                      ),
-                    ),
-                    onTap: () {
-                      bookingProvider.statusBooking = 0;
-                      _onLoading();
-                    },
-                  ),
-                ],
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 22),
-              child: Icon(
-                Icons.more_horiz_rounded,
-                size: 28,
-                color: context.read<ThemeProvider>().themeApp
-                    ? darkBlueColor
-                    : whiteColor,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -129,16 +77,44 @@ class _BookingsPageState extends State<BookingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              bookingProvider.statusBooking == 1
-                  ? "On progress now"
-                  : "Recent bookings",
-              style: semiBoldTextStyle.copyWith(
-                color: context.read<ThemeProvider>().themeApp
-                    ? darkBlueColor
-                    : whiteColor,
-                fontSize: 16,
-              ),
+            Row(
+              children: [
+                ChoiceChip(
+                  label: Text(
+                    'On Progress',
+                    style: TextStyle(
+                      color: darkBlueColor,
+                    ),
+                  ),
+                  selected: _selectedFilterIndex == 0,
+                  selectedColor: yellowColor,
+                  onSelected: (_) {
+                    setState(() {
+                      _selectedFilterIndex = 0;
+                    });
+                    bookingProvider.statusBooking = 1;
+                    _onLoading();
+                  },
+                ),
+                const SizedBox(width: 10),
+                ChoiceChip(
+                  label: Text(
+                    'Recent Bookings',
+                    style: TextStyle(
+                      color: darkBlueColor,
+                    ),
+                  ),
+                  selected: _selectedFilterIndex == 1,
+                  selectedColor: yellowColor,
+                  onSelected: (_) {
+                    setState(() {
+                      _selectedFilterIndex = 1;
+                    });
+                    bookingProvider.statusBooking = 0;
+                    _onLoading();
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             _loadingBookings
@@ -161,14 +137,40 @@ class _BookingsPageState extends State<BookingsPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              data['status_booking'] == 0
+                                  ? Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                          ),
+                                          color: blueColor,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "Completed",
+                                            style: boldTextStyle.copyWith(
+                                              color: whiteColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
                               Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                  ),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: const Radius.circular(10),
+                                      topRight: data['status_booking'] == 1
+                                          ? const Radius.circular(10)
+                                          : const Radius.circular(0)),
                                   color: context.read<ThemeProvider>().themeApp
                                       ? darkBlueColor
                                       : whiteColor,

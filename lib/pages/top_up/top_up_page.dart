@@ -15,6 +15,16 @@ class TopUpPage extends StatefulWidget {
 class _TopUpPageState extends State<TopUpPage> {
   String _paymentMethod = "";
   final _nominalController = TextEditingController();
+  int? _selectedNominal;
+
+  final List<int> _nominalOptions = [
+    50000,
+    100000,
+    200000,
+    500000,
+    1000000,
+    2000000
+  ];
 
   void _validateMsgFormTopUp(String msg) {
     var snackBar = SnackBar(
@@ -151,6 +161,43 @@ class _TopUpPageState extends State<TopUpPage> {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 20),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: _nominalOptions.map((nominal) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedNominal = nominal;
+                        _nominalController.text = nominal.toString();
+                      });
+                    },
+                    child: Container(
+                      width: (MediaQuery.of(context).size.width - 15) / 4,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: darkBlueColor,
+                        ),
+                        color: _selectedNominal == nominal
+                            ? darkBlueColor
+                            : whiteColor,
+                      ),
+                      child: Text(
+                        'Rp $nominal',
+                        style: mediumTextStyle.copyWith(
+                          color: _selectedNominal == nominal
+                              ? whiteColor
+                              : darkBlueColor,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 20),
               Align(

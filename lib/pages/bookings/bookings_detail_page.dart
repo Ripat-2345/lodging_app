@@ -54,26 +54,41 @@ class BookingsDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text(
-                  "Scan QRCode for reservation",
-                  style: semiBoldTextStyle.copyWith(
-                      color: darkBlueColor, fontSize: 16),
-                ),
-              ),
+              detailBooking['status_booking'] == 1
+                  ? Center(
+                      child: Text(
+                        "Scan QRCode for reservation",
+                        style: semiBoldTextStyle.copyWith(
+                            color: darkBlueColor, fontSize: 16),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        "Your booking is completed\nThank you for visiting",
+                        style: semiBoldTextStyle.copyWith(
+                          color: darkBlueColor,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
               const SizedBox(height: 20),
-              Center(
-                child: SizedBox(
-                  width: 220,
-                  height: 220,
-                  child: SfBarcodeGenerator(
-                    value: detailBooking['id_booking'].toString(),
-                    symbology: QRCode(),
-                    barColor: darkBlueColor,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
+              detailBooking['status_booking'] == 1
+                  ? Center(
+                      child: SizedBox(
+                        width: 220,
+                        height: 220,
+                        child: SfBarcodeGenerator(
+                          value: detailBooking['id_booking'].toString(),
+                          symbology: QRCode(),
+                          barColor: darkBlueColor,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              detailBooking['status_booking'] == 1
+                  ? const SizedBox(height: 30)
+                  : const SizedBox(),
               Text(
                 detailBooking['lodging_name'],
                 style: mediumTextStyle.copyWith(
@@ -142,19 +157,48 @@ class BookingsDetailPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Text(
-                "Duration stay",
-                style: mediumTextStyle.copyWith(
-                  color: darkBlueColor,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                detailBooking['duration'],
-                style: regularTextStyle.copyWith(
-                  color: blueColor,
-                ),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Duration stay",
+                        style: mediumTextStyle.copyWith(
+                          color: darkBlueColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        detailBooking['duration'],
+                        style: regularTextStyle.copyWith(
+                          color: blueColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 36),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "People stay",
+                        style: mediumTextStyle.copyWith(
+                          color: darkBlueColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "${detailBooking['count_people_stay'].toString()} people",
+                        style: regularTextStyle.copyWith(
+                          color: blueColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               Text(
@@ -172,10 +216,48 @@ class BookingsDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              CustomFilledButtonWidget(
-                buttonTitle: "Cancel",
-                onPressed: () {},
+              Text(
+                "Payment method",
+                style: mediumTextStyle.copyWith(
+                  color: darkBlueColor,
+                  fontSize: 16,
+                ),
               ),
+              const SizedBox(height: 10),
+              Text(
+                detailBooking['payment_method'],
+                style: regularTextStyle.copyWith(
+                  color: blueColor,
+                ),
+              ),
+              const SizedBox(height: 20),
+              detailBooking['status_booking'] == 1
+                  ? CustomFilledButtonWidget(
+                      buttonTitle: "Cancel",
+                      onPressed: () {},
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 10),
+              CustomFilledButtonWidget(
+                buttonTitle: "Print Invoice",
+                buttonColor: Colors.grey,
+                buttonTitleColor: whiteColor,
+                onPressed: () {
+                  var snackBar = SnackBar(
+                    content: Text(
+                      "Invoice has been downloaded!",
+                      style: mediumTextStyle.copyWith(
+                        color: darkBlueColor,
+                      ),
+                    ),
+                    duration: const Duration(seconds: 2),
+                    backgroundColor: yellowColor,
+                    behavior: SnackBarBehavior.floating,
+                    shape: const StadiumBorder(),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
+              )
             ],
           ),
         ),

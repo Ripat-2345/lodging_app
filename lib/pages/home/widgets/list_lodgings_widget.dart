@@ -135,7 +135,8 @@ class _ListLodgingsWidgetState extends State<ListLodgingsWidget> {
                               ],
                             ),
                             Row(
-                              children: listFacilities.map((data) {
+                              children:
+                                  listFacilities.sublist(0, 3).map((data) {
                                 return Row(
                                   children: [
                                     Text(
