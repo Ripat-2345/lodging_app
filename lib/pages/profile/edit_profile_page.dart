@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/common_widgets/custom_textfield_widget.dart';
+import 'package:lodging_app/pages/profile/edit_password_page.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
@@ -174,31 +175,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: yellowColor,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.lock_person_rounded,
-                              color: darkBlueColor,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditPasswordPage(),
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              "Edit Password",
-                              style: mediumTextStyle.copyWith(
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: yellowColor,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.lock_person_rounded,
                                 color: darkBlueColor,
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 5),
+                              Text(
+                                "Edit Password",
+                                style: mediumTextStyle.copyWith(
+                                  color: darkBlueColor,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

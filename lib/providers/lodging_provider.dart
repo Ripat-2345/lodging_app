@@ -26,4 +26,19 @@ class LodgingProvider extends ChangeNotifier {
     _searchLodgingMatch = newSearchLodgingMatch;
     notifyListeners();
   }
+
+  void setIsFavoriteLodging(val, String lodgingName) {
+    var findLodging = _listLodgings.where(
+      (element) => element['lodging_name'].contains(lodgingName),
+    );
+    if (findLodging.isNotEmpty) {
+      var lodging = findLodging.first;
+      lodging.update(
+        "is_favorite",
+        (value) => !val,
+        ifAbsent: () => !val,
+      );
+    }
+    notifyListeners();
+  }
 }

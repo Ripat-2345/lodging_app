@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/pages/payment/payment_success_page.dart';
 import 'package:lodging_app/pages/payment/payment_transfer_page.dart';
+import 'package:lodging_app/providers/booking_provider.dart';
+import 'package:lodging_app/providers/notification_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,8 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    var bookingProvider = Provider.of<BookingProvider>(context);
+    var notificationProvider = Provider.of<NotificationProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -556,6 +560,20 @@ class _PaymentPageState extends State<PaymentPage> {
                             onPressed: () {
                               if (_paymentMethod.isNotEmpty) {
                                 if (_paymentMethod == "WALLET") {
+                                  widget.dataBooking.update(
+                                    "payment_method",
+                                    (value) => _paymentMethod + value,
+                                    ifAbsent: () => _paymentMethod,
+                                  );
+                                  bookingProvider.addBooking(
+                                    widget.dataBooking,
+                                  );
+                                  notificationProvider.addNotification(
+                                    DateTime.now().toString(),
+                                    "Transaction",
+                                    "Payment reserve lodging",
+                                    '''Payment reserve "${widget.dataBooking['lodging_name']}" has been success, please scan your booking QRCODE at the lodging you have been reserve!''',
+                                  );
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(builder: (context) {
@@ -563,6 +581,20 @@ class _PaymentPageState extends State<PaymentPage> {
                                     }),
                                   );
                                 } else {
+                                  widget.dataBooking.update(
+                                    "payment_method",
+                                    (value) => _paymentMethod + value,
+                                    ifAbsent: () => _paymentMethod,
+                                  );
+                                  bookingProvider.addBooking(
+                                    widget.dataBooking,
+                                  );
+                                  notificationProvider.addNotification(
+                                    DateTime.now().toString(),
+                                    "Transaction",
+                                    "Payment reserve lodging",
+                                    '''Payment reserve "${widget.dataBooking['lodging_name']}" has been success, please completed your payment with transfer first to change your booking lodging be reserved.''',
+                                  );
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -574,7 +606,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                 }
                               } else {
                                 _validateMsgPaymentForm(
-                                    "Pilih metode pembayaran!");
+                                  "Pilih metode pembayaran!",
+                                );
                               }
                             },
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
+import 'package:lodging_app/pages/bottom_menu_bar_page.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -107,7 +108,15 @@ class PaymentTransferPage extends StatelessWidget {
                 buttonTitle: "Pay Later",
                 buttonColor: Colors.grey,
                 buttonTitleColor: Colors.white,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BottomMenuBarPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
               ),
             ],
           ),

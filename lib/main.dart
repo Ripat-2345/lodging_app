@@ -9,7 +9,6 @@ import 'package:lodging_app/pages/notification/notification_page.dart';
 import 'package:lodging_app/pages/splash_page.dart';
 import 'package:lodging_app/providers/auth_provider.dart';
 import 'package:lodging_app/providers/booking_provider.dart';
-import 'package:lodging_app/providers/home_provider.dart';
 import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/providers/notification_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
@@ -20,7 +19,6 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
         ChangeNotifierProvider<LodgingProvider>(
           create: (_) => LodgingProvider(),

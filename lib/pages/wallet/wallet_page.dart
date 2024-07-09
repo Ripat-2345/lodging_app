@@ -12,7 +12,22 @@ class WalletPage extends StatefulWidget {
   State<WalletPage> createState() => _WalletPageState();
 }
 
-class _WalletPageState extends State<WalletPage> {
+class _WalletPageState extends State<WalletPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,115 +116,139 @@ class _WalletPageState extends State<WalletPage> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 1.8,
-              margin: const EdgeInsets.only(
-                left: 22,
-                top: 10,
-                right: 22,
-                bottom: 22,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 30),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: whiteColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "History Transaction",
-                    style: semiBoldTextStyle.copyWith(
-                      color: darkBlueColor,
-                      fontSize: 18,
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                  left: 22,
+                  top: 10,
+                  right: 22,
+                  bottom: 22,
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: whiteColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "History Transaction",
+                      style: semiBoldTextStyle.copyWith(
+                        color: darkBlueColor,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      Card(
-                        color: whiteColor,
-                        elevation: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Column(
+                    const SizedBox(height: 10),
+                    TabBar(
+                      controller: _tabController,
+                      indicatorColor: darkBlueColor,
+                      labelColor: darkBlueColor,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: const [
+                        Tab(text: 'Transaction Out'),
+                        Tab(text: 'Transaction In'),
+                      ],
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          ListView(
+                            shrinkWrap: true,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Transaction Out",
-                                    style: semiBoldTextStyle.copyWith(
-                                      color: Colors.redAccent,
-                                    ),
+                              Card(
+                                color: whiteColor,
+                                elevation: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Transaction Out",
+                                            style: semiBoldTextStyle.copyWith(
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                          Text(
+                                            "20 may 2024 10:11:20",
+                                            style: semiBoldTextStyle.copyWith(
+                                              fontSize: 10,
+                                              color: darkBlueColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 18),
+                                      Text(
+                                        "-Rp. 1000000",
+                                        style: mediumTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                    ],
                                   ),
-                                  Text(
-                                    "20 may 2024 10:11:20",
-                                    style: semiBoldTextStyle.copyWith(
-                                      fontSize: 10,
-                                      color: darkBlueColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 18),
-                              Text(
-                                "-Rp. 1000000",
-                                style: mediumTextStyle.copyWith(
-                                  color: darkBlueColor,
-                                  fontSize: 20,
                                 ),
                               ),
-                              const SizedBox(height: 5),
                             ],
                           ),
-                        ),
-                      ),
-                      Card(
-                        color: whiteColor,
-                        elevation: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Column(
+                          ListView(
+                            shrinkWrap: true,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Transaction In",
-                                    style: semiBoldTextStyle.copyWith(
-                                      color: Colors.green,
-                                    ),
+                              Card(
+                                color: whiteColor,
+                                elevation: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Transaction In",
+                                            style: semiBoldTextStyle.copyWith(
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                          Text(
+                                            "20 may 2024 10:11:20",
+                                            style: semiBoldTextStyle.copyWith(
+                                              fontSize: 10,
+                                              color: darkBlueColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 18),
+                                      Text(
+                                        "Rp. 500000",
+                                        style: mediumTextStyle.copyWith(
+                                          color: darkBlueColor,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                    ],
                                   ),
-                                  Text(
-                                    "20 may 2024 10:11:20",
-                                    style: semiBoldTextStyle.copyWith(
-                                      fontSize: 10,
-                                      color: darkBlueColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 18),
-                              Text(
-                                "Rp. 500000",
-                                style: mediumTextStyle.copyWith(
-                                  color: darkBlueColor,
-                                  fontSize: 20,
                                 ),
                               ),
-                              const SizedBox(height: 5),
                             ],
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

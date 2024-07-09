@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/pages/payment/payment_transfer_page.dart';
+import 'package:lodging_app/providers/notification_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +51,8 @@ class _TopUpPageState extends State<TopUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    var notificationProvider = Provider.of<NotificationProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -209,6 +212,12 @@ class _TopUpPageState extends State<TopUpPage> {
                     if (_nominalController.text.isNotEmpty) {
                       if (int.tryParse(_nominalController.text) != null) {
                         if (_paymentMethod.isNotEmpty) {
+                          notificationProvider.addNotification(
+                            DateTime.now().toString(),
+                            "Transaction",
+                            "Payment top up saldo",
+                            '''Payment top up with "$_paymentMethod" has been success, please completed your transfer first to increst your saldo.''',
+                          );
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

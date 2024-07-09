@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lodging_app/common_widgets/custom_filled_button_widget.dart';
 import 'package:lodging_app/pages/reserve/reserve_lodging_page.dart';
+import 'package:lodging_app/providers/lodging_provider.dart';
 import 'package:lodging_app/providers/theme_provider.dart';
 import 'package:lodging_app/theme.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var lodgingProvider = Provider.of<LodgingProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -68,13 +70,25 @@ class _DetailLodgingPageState extends State<DetailLodgingPage> {
                   SizedBox(
                     width: 28,
                     child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border_rounded,
-                        size: 28,
-                        color:
-                            themeProvider.themeApp ? darkBlueColor : whiteColor,
-                      ),
+                      onPressed: () {
+                        lodgingProvider.setIsFavoriteLodging(
+                          widget.detailLodging["is_favorite"],
+                          widget.detailLodging["lodging_name"],
+                        );
+                      },
+                      icon: widget.detailLodging['is_favorite']
+                          ? const Icon(
+                              Icons.favorite,
+                              color: Colors.redAccent,
+                              size: 28,
+                            )
+                          : Icon(
+                              Icons.favorite_border_rounded,
+                              size: 28,
+                              color: themeProvider.themeApp
+                                  ? darkBlueColor
+                                  : whiteColor,
+                            ),
                       padding: const EdgeInsets.all(0),
                     ),
                   ),

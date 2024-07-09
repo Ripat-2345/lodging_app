@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Popular lodgings",
+                "Trending now",
                 textAlign: TextAlign.left,
                 style: semiBoldTextStyle.copyWith(
                   color: themeProvider.themeApp ? darkBlueColor : whiteColor,

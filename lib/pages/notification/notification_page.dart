@@ -47,7 +47,6 @@ class _NotificationPageState extends State<NotificationPage> {
           left: 22,
           top: 10,
           right: 22,
-          bottom: 10,
         ),
         child: SingleChildScrollView(
           child: Column(

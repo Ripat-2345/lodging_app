@@ -2,6 +2,7 @@ class LodgingModel {
   static List data = [
     {
       "id_lodging": 1,
+      "is_favorite": false,
       "lodging_name": "S Resorts Hidden Valley Bali",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
@@ -40,6 +41,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 2,
+      "is_favorite": false,
       "lodging_name": "Harsono Boutique Resort Bali",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
@@ -78,6 +80,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 3,
+      "is_favorite": false,
       "lodging_name": "Bali Jungle Camping by Amerta",
       "lodging_location":
           "Jalan Pratama Gang Welaka no 8, Tanjung Benoa, Nusa Dua, Bali, 80363 Nusa Dua, Indonesia",
@@ -116,6 +119,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 4,
+      "is_favorite": false,
       "lodging_name": "The Anvaya Beach Resort Bali",
       "lodging_location": "Jalan Kartika Plaza, Kuta, Bali, Indonesia",
       "lodging_images": [
@@ -155,6 +159,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 5,
+      "is_favorite": false,
       "lodging_name": "The Edge Bali",
       "lodging_location": "Jalan Pura Goa Lempeh, Pecatu, Bali, Indonesia",
       "lodging_images": [
@@ -194,6 +199,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 6,
+      "is_favorite": false,
       "lodging_name": "Karma Kandara",
       "lodging_location": "Jalan Villa Kandara, Ungasan, Bali, Indonesia",
       "lodging_images": [
@@ -233,6 +239,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 7,
+      "is_favorite": false,
       "lodging_name": "Alila Villas Uluwatu",
       "lodging_location": "Jalan Belimbing Sari, Uluwatu, Bali, Indonesia",
       "lodging_images": [
@@ -272,6 +279,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 8,
+      "is_favorite": false,
       "lodging_name": "Four Seasons Resort Bali at Jimbaran Bay",
       "lodging_location": "Jalan Bukit Permai, Jimbaran, Bali, Indonesia",
       "lodging_images": [
@@ -311,6 +319,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 9,
+      "is_favorite": false,
       "lodging_name": "The St. Regis Bali Resort",
       "lodging_location":
           "Kawasan Pariwisata, Nusa Dua, Lot S6, Nusa Dua, Bali, Indonesia",
@@ -352,6 +361,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 10,
+      "is_favorite": false,
       "lodging_name": "The Mulia Bali",
       "lodging_location":
           "Jalan Raya Nusa Dua Selatan, Kawasan Sawangan, Nusa Dua, Bali, Indonesia",
@@ -393,6 +403,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 11,
+      "is_favorite": false,
       "lodging_name": "W Bali - Seminyak",
       "lodging_location": "Jalan Petitenget, Seminyak, Bali, Indonesia",
       "lodging_images": [
@@ -432,6 +443,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 12,
+      "is_favorite": false,
       "lodging_name": "Amankila",
       "lodging_location": "Jalan Raya Manggis, Manggis, Bali, Indonesia",
       "lodging_images": [
@@ -471,6 +483,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 13,
+      "is_favorite": false,
       "lodging_name": "Hanging Gardens of Bali",
       "lodging_location": "Desa Buahan, Payangan, Bali, Indonesia",
       "lodging_images": [
@@ -510,6 +523,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 14,
+      "is_favorite": false,
       "lodging_name": "Mulia Resort Nusa Dua",
       "lodging_location": "Kawasan Pariwisata, Nusa Dua, Bali, Indonesia",
       "lodging_images": [
@@ -549,6 +563,7 @@ class LodgingModel {
     },
     {
       "id_lodging": 15,
+      "is_favorite": false,
       "lodging_name": "Mandapa, a Ritz-Carlton Reserve",
       "lodging_location": "Jalan Kedewatan, Ubud, Bali, Indonesia",
       "lodging_images": [

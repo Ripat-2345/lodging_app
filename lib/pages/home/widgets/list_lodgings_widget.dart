@@ -29,6 +29,7 @@ class _ListLodgingsWidgetState extends State<ListLodgingsWidget> {
             cardBuilder: (context, index) {
               List listFacilities =
                   lodgingProvider.listLodgings[index]['facilities'];
+
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -76,12 +77,26 @@ class _ListLodgingsWidgetState extends State<ListLodgingsWidget> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite_border_rounded,
-                                  color: whiteColor,
-                                  size: 24,
-                                ),
+                                onPressed: () {
+                                  lodgingProvider.setIsFavoriteLodging(
+                                    lodgingProvider.listLodgings[index]
+                                        ["is_favorite"],
+                                    lodgingProvider.listLodgings[index]
+                                        ["lodging_name"],
+                                  );
+                                },
+                                icon: lodgingProvider.listLodgings[index]
+                                        ["is_favorite"]
+                                    ? const Icon(
+                                        Icons.favorite,
+                                        color: Colors.redAccent,
+                                        size: 24,
+                                      )
+                                    : Icon(
+                                        Icons.favorite_border_rounded,
+                                        color: whiteColor,
+                                        size: 24,
+                                      ),
                                 padding: const EdgeInsets.all(0),
                               ),
                             ),

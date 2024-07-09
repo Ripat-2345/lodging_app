@@ -14,4 +14,9 @@ class BookingProvider extends ChangeNotifier {
     _statusBooking = newStatus;
     notifyListeners();
   }
+
+  void addBooking(Map newBookingModel) {
+    BookingModel.data.add(newBookingModel);
+    notifyListeners();
+  }
 }
